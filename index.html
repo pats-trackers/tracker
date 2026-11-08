@@ -426,6 +426,94 @@ function strengthDetailsForWeek(w){
          '<br><b>Wed, Strength B, Upper + Core (45-50 min):</b> Warm-up 5 min easy bike or row + band pull-aparts 2x12. ' + b;
 }
 
+/* Structured strength plan: every exercise with series, reps and weight, per phase. */
+function strengthPlan(w){
+  const ph = phaseForWeek(w);
+  const L = (name, series, reps, weight, note)=>({name, series, reps, weight, note:note||''});
+  let a, b;
+  if(w===1){
+    a = [ L('Warm-up: treadmill 8% at 2.8 mph','-','5 min + 10 squats, 10 lunges, 10 calf raises','-'),
+      L('Box step-ups','3 series','8 reps per leg','Bodyweight','Step down SLOW, 3 seconds. 12-16 in box. This is your LeConte descent training.'),
+      L('Bulgarian split squats','3 series','6 reps per leg','Bodyweight',''),
+      L('Dumbbell Romanian deadlift','3 series','10 reps','15-20 lb dumbbells (each hand)','RPE 6-7. Flat back, hinge at the hips. Write down the weight you used.'),
+      L('Walking lunges','2 series','16 steps','Bodyweight',''),
+      L('Calf raises, straight knee','2 series','12 reps','Bodyweight',''),
+      L('Calf raises, bent knee','2 series','12 reps','Bodyweight',''),
+      L('Tibialis raises','2 series','12 reps','Bodyweight','Toes up against a wall. Protects your shins on descents.'),
+      L('Finish (if time): stair climber easy','-','8 min','-','') ];
+    b = [ L('Warm-up: easy bike or row + band pull-aparts','-','5 min + 2 x 12 pull-aparts','Light band'),
+      L('One-arm dumbbell row','3 series','10 reps per side','About 20 lb to start','RPE 6-7, adjust so the last 2 reps are hard.'),
+      L('Push-ups','3 series','8-12 reps','Bodyweight','Incline on a bench if floor form breaks.'),
+      L('Lat pulldown','3 series','10 reps','Moderate pin, about 50-70 lb on most machines','Last 2 reps should be hard.'),
+      L('Dumbbell shoulder press','2 series','10 reps','10-15 lb dumbbells','Light, clean form.'),
+      L('Core circuit: dead bug + plank + Pallof press','3 rounds','Dead bug 8/side, plank 30 sec, Pallof 10/side','Light band or cable','Rest 30 sec between rounds.') ];
+  } else if(ph==='Base'){
+    a = [ L('Warm-up: treadmill 8% at 2.8 mph','-','5 min + 10 squats, 10 lunges, 10 calf raises','-'),
+      L('Box step-ups','3 series','10 reps per leg', (w<=4?'5 lb':'5-10 lb')+' dumbbells','Step down SLOW, 3 seconds.'),
+      L('Split squats','3 series','8 reps per leg','Bodyweight or light dumbbells',''),
+      L('Dumbbell Romanian deadlift','3 series','10 reps','Your Week 1 weight + about 5 lb','RPE 6-7, only add if form stayed clean.'),
+      L('Walking lunges','2 series','20 steps','Bodyweight',''),
+      L('Calf raises, straight knee','3 series','12 reps','Bodyweight',''),
+      L('Calf raises, bent knee','2 series','12 reps','Bodyweight',''),
+      L('Tibialis raises','2 series','15 reps','Bodyweight',''),
+      L('Finish: stair climber easy','-','10 min','-','') ];
+    b = [ L('Warm-up: easy bike or row + band pull-aparts','-','5 min + 2 x 12 pull-aparts','Light band'),
+      L('One-arm dumbbell row','3 series','10 reps per side','A little more than Week 1',''),
+      L('Push-ups','3 series','10-12 reps','Bodyweight',''),
+      L('Lat pulldown','3 series','10 reps','Add one pin if Week 1 felt easy',''),
+      L('Dumbbell shoulder press','2 series','10 reps','10-15 lb dumbbells',''),
+      L('Core circuit: dead bug + plank + Pallof press','3 rounds','Dead bug 10/side, plank 35 sec, Pallof 10/side','Light band or cable',''),
+      L('Finish: easy incline walk','-','5 min','-','') ];
+  } else if(ph==='Build'){
+    a = [ L('Warm-up: treadmill 8% at 2.8 mph','-','5 min + 10 squats, 10 lunges, 10 calf raises','-'),
+      L('Box step-ups','3 series','10 reps per leg','10-15 lb (dumbbells or your pack)','Step down SLOW, 3 seconds.'),
+      L('Split squats','3 series','8 reps per leg','Dumbbells, RPE 7',''),
+      L('Dumbbell Romanian deadlift','3 series','10 reps','Heaviest with a flat back, RPE 7-8',''),
+      L('Reverse lunges','2 series','10 reps per leg','Bodyweight or light dumbbells','Slow 3-second lower.'),
+      L('Calf raises, straight knee','3 series','15 reps','Bodyweight, single-leg if easy',''),
+      L('Calf raises, bent knee','3 series','12 reps','Bodyweight',''),
+      L('Tibialis raises','2 series','15 reps','Bodyweight',''),
+      L('Finish: stair climber moderate','-','10 min','-','') ];
+    b = [ L('Warm-up: easy bike or row + band pull-aparts','-','5 min + 2 x 12 pull-aparts','Light band'),
+      L('One-arm dumbbell row','3 series','12 reps per side','RPE 7',''),
+      L('Push-ups','3 series','12 reps','Bodyweight',''),
+      L('Lat pulldown','3 series','12 reps','Moderate-heavy pin',''),
+      L('Dumbbell shoulder press','3 series','10 reps','15 lb dumbbells, adjust to RPE 7',''),
+      L('Farmers carry','3 series','40 steps','Heavy: about 25-35 lb each hand','Grip and posture for poles and pack. Stand tall.'),
+      L('Core circuit: dead bug + plank + Pallof press','3 rounds','Dead bug 10/side, plank 45 sec, Pallof 12/side','Light band or cable','') ];
+  } else if(ph==='Specific'){
+    const pk = (PLAN[w-1]||{}).packLb || 15;
+    a = [ L('Warm-up: treadmill 8% at 2.8 mph','-','5 min + 10 squats, 10 lunges, 10 calf raises','-'),
+      L('Box step-ups','3 series','12 reps per leg','Your pack at '+pk+' lb','Step down SLOW, 3 seconds.'),
+      L('Split squats','3 series','8 reps per leg','Dumbbells, RPE 7-8',''),
+      L('Dumbbell Romanian deadlift','3 series','8 reps','Heavy, RPE 8',''),
+      L('Single-leg Romanian deadlift','2 series','8 reps per leg','Light dumbbell','Balance focus, hold a rack if needed.'),
+      L('Calf raises, single-leg','3 series','15 reps','Bodyweight',''),
+      L('Tibialis raises','2 series','15 reps','Bodyweight',''),
+      L('Finish: stair climber','-','12 min','Your pack at '+pk+' lb','Skip the finish if the session passes 60 min.') ];
+    b = [ L('Warm-up: easy bike or row + band pull-aparts','-','5 min + 2 x 12 pull-aparts','Light band'),
+      L('One-arm dumbbell row','3 series','12 reps per side','RPE 7-8',''),
+      L('Push-ups','3 series','12 reps','Bodyweight',''),
+      L('Lat pulldown','3 series','12 reps','Moderate-heavy pin',''),
+      L('Dumbbell shoulder press','3 series','10 reps','15 lb dumbbells, adjust to RPE 7',''),
+      L('Farmers carry','3 series','50 steps','Pack weight ('+pk+' lb) or heavier, split between hands',''),
+      L('Pole practice: incline walk with trekking poles','-','10 min','Poles','If your gym allows poles on the treadmill. Plant and push.'),
+      L('Core circuit: dead bug + side plank + Pallof press','3 rounds','Dead bug 10/side, side plank 30 sec/side, Pallof 12/side','Light band or cable','') ];
+  } else {
+    a = [ L('Warm-up: treadmill easy','-','5 min','-'),
+      L('Box step-ups','2 series','8 reps per leg','Bodyweight','Slow descents. TAPER: half volume, light, no soreness.'),
+      L('Split squats','2 series','6 reps per leg','Bodyweight',''),
+      L('Dumbbell Romanian deadlift','2 series','8 reps','Light, RPE 5',''),
+      L('Calf raises','2 series','12 reps','Bodyweight',''),
+      L('Tibialis raises','2 series','12 reps','Bodyweight','') ];
+    b = [ L('One-arm dumbbell row','2 series','10 reps per side','Light, easy','TAPER: light and short, about 35 min total.'),
+      L('Push-ups','2 series','8 reps','Bodyweight',''),
+      L('Lat pulldown','2 series','10 reps','Light pin',''),
+      L('Core circuit: dead bug + plank','2 rounds','Dead bug 8/side, plank 30 sec','-','') ];
+  }
+  const fmtLines = (arr)=>arr.map(e=>'• '+e.name+'\n    '+(e.series!=='-'?e.series+' × ':'')+e.reps+(e.weight!=='-'?'  ·  Weight: '+e.weight:'')+(e.note?'  ·  '+e.note:'')).join('\n');
+  return { aText:'Rest 60-90 seconds between series.\n'+fmtLines(a), bText:'Rest 60-90 seconds between series.\n'+fmtLines(b) };
+}
 const BACK_TO_BACK = {8:3, 16:4, 17:4, 19:5}; // week -> Sunday easy miles
 function stairsMinutesForWeek(w){
   if(w>=22) return 35;
@@ -447,14 +535,13 @@ function todayInfo(d){
   }
   const w = info.week, p = info.plan, dow = date.getDay(); // 0 Sun .. 6 Sat
   const S = sessionsForWeek(w);
-  const strength = strengthDetailsForWeek(w);
-  const half = strength.split('<br>');
-  if(dow===1) return {label, title:S[0].title, body:half[0].replace(/<[^>]+>/g,'')};
+  const sp = strengthPlan(w);
+  if(dow===1) return {label, title:S[0].title, body:sp.aText};
   if(dow===2){
     const inc = inclineMinForWeek(w);
     return {label, title:S[1].title, body:S[1].desc};
   }
-  if(dow===3) return {label, title:S[2].title, body:(half[1]||'').replace(/<[^>]+>/g,'')};
+  if(dow===3) return {label, title:S[2].title, body:sp.bText};
   if(dow===4) return {label, title:'REST DAY', body:'No workout today. Optional 20 min flat easy walk plus 10 min mobility: calf stretch, hip flexor stretch, ankle circles, chest opener. Rest is training too, this is when the legs rebuild.'};
   if(dow===5){
     const mins = stairsMinutesForWeek(w), rounds = Math.max(4, Math.round(mins/4));
@@ -871,7 +958,7 @@ function renderWeek(){
       '<span class="daychip">'+d.chip+'</span>' +
       (d.key ? '<input type="checkbox" data-sess="'+d.key+'"'+(doneMap[d.key]?' checked':'')+' aria-label="Mark '+esc(d.title)+' done">' : '<span style="width:20px;flex:0 0 20px"></span>') +
       '<div style="flex:1"><div class="st">'+esc(d.title)+' <span style="color:var(--muted);font-weight:600">· '+d.dateLabel+'</span></div>' +
-      '<details class="daywhat"><summary style="cursor:pointer;color:var(--gold,#c9a227);font-weight:700;padding:2px 0">Tap to see what to do</summary><div class="sd" style="margin-top:4px;line-height:1.5">'+esc(d.body)+'</div></details></div>' +
+      '<details class="daywhat"><summary style="cursor:pointer;color:var(--gold,#c9a227);font-weight:700;padding:2px 0">Tap to see what to do</summary><div class="sd" style="margin-top:4px;line-height:1.55">'+esc(d.body).replace(/\n/g,'<br>')+'</div></details></div>' +
     '</div>'
   ).join('');
   $('#weekSessions').querySelectorAll('input[data-sess]').forEach(cb=>{
@@ -988,7 +1075,7 @@ function renderToday(){
   const t = todayInfo(new Date());
   const info = weekInfo(new Date());
   $('#todayTitle').textContent = '📌 Today, ' + t.label + (info.beforeStart ? '' : ' · Week ' + info.week + ' of 24 · ' + info.phase);
-  $('#todayBody').innerHTML = '<div style="font-weight:700;font-size:17px;margin-bottom:4px">'+esc(t.title)+'</div><div style="line-height:1.5">'+esc(t.body)+'</div>';
+  $('#todayBody').innerHTML = '<div style="font-weight:700;font-size:17px;margin-bottom:4px">'+esc(t.title)+'</div><div style="line-height:1.55">'+esc(t.body).replace(/\n/g,'<br>')+'</div>';
 }
 function render(){
   renderSetup(); renderToday(); renderCountdown(); renderWeek(); renderProgress();
@@ -1088,7 +1175,7 @@ document.addEventListener('DOMContentLoaded', init);
 /* Exposed for tests */
 window.__leconte = {PLAN, TARGETS, TRAILS, LS_KEY, PLAN_START, READY_BY,
   weekNumberFor, weekFor, weekInfo, phaseForWeek, daysUntilReady, inclineMinForWeek,
-  sessionsForWeek, strengthDetailsForWeek, todayInfo, weekDaysFor, stairsMinutesForWeek, validateEntry, computeTotals, computeProgress, coachInfo,
+  sessionsForWeek, strengthDetailsForWeek, strengthPlan, todayInfo, weekDaysFor, stairsMinutesForWeek, validateEntry, computeTotals, computeProgress, coachInfo,
   plannedLongThroughLastWeek, VERSES, store};
 </script>
 </body>

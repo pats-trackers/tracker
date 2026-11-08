@@ -1,6 +1,6 @@
 /* LeConte Training service worker — network-first so updates always come through,
    cache fallback so the app still opens offline. */
-const V = 'leconte-v4';
+const V = 'leconte-v5';
 const CORE = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png', './apple-touch-icon.png'];
 
 self.addEventListener('install', e => {
