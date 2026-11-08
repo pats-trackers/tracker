@@ -843,37 +843,51 @@ function renderCountdown(){
   const tr = trailOf(store.data.profile.trail);
   $('#cdTrail').textContent = tr.label;
 }
+function weekDaysFor(w){
+  const monday = new Date(PLAN_START.getTime() + (w-1)*7*86400000);
+  const chips = ['MON','TUE','WED','THU','FRI','SAT','SUN'];
+  const keys  = ['mon','tue','wed',null,'fri','sat', BACK_TO_BACK[w] ? 'sun' : null];
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const out = [];
+  for(let i=0;i<7;i++){
+    const d = new Date(monday.getTime() + i*86400000);
+    const ti = todayInfo(d);
+    out.push({ chip:chips[i], dateLabel:months[d.getMonth()]+' '+d.getDate(), key:keys[i],
+               title:ti.title, body:ti.body });
+  }
+  return out;
+}
 function renderWeek(){
   const info = weekInfo(new Date());
   const w = info.week, plan = PLAN[w-1];
   $('#weekMeta').textContent = '· Week '+w+' of 24 · '+info.phase+(info.beforeStart?' · starts Mon Nov 9':'');
-  $('#weekFocus').textContent = 'Focus: '+plan.focus+' · Saturday target: '+fmt(plan.longMi)+' mi · Stairs target: '+fmtInt(plan.stairsFt)+' ft · Pack: '+plan.packLb+' lb';
+  $('#weekFocus').textContent = 'Focus: '+plan.focus+' · Saturday target: '+fmt(plan.longMi)+' mi · Stairs target: '+fmtInt(plan.stairsFt)+' ft · Pack: '+plan.packLb+' lb · Tap any day to see exactly what to do.';
   const wkKey = 'w'+w;
   const doneMap = store.data.done[wkKey] || {};
-  const sessions = sessionsForWeek(w);
-  $('#weekSessions').innerHTML = sessions.map(s=>
-    '<div class="sess'+(doneMap[s.key]?' done':'')+'">' +
-      '<span class="daychip">'+s.day+'</span>' +
-      '<input type="checkbox" data-sess="'+s.key+'"'+(doneMap[s.key]?' checked':'')+' aria-label="Mark '+esc(s.title)+' done">' +
-      '<div><div class="st">'+esc(s.title)+'</div><div class="sd">'+esc(s.desc)+'</div></div>' +
+  const days = weekDaysFor(w);
+  const trainDays = days.filter(d=>d.key);
+  $('#weekSessions').innerHTML = days.map(d=>
+    '<div class="sess'+(d.key && doneMap[d.key]?' done':'')+'">' +
+      '<span class="daychip">'+d.chip+'</span>' +
+      (d.key ? '<input type="checkbox" data-sess="'+d.key+'"'+(doneMap[d.key]?' checked':'')+' aria-label="Mark '+esc(d.title)+' done">' : '<span style="width:20px;flex:0 0 20px"></span>') +
+      '<div style="flex:1"><div class="st">'+esc(d.title)+' <span style="color:var(--muted);font-weight:600">· '+d.dateLabel+'</span></div>' +
+      '<details class="daywhat"><summary style="cursor:pointer;color:var(--gold,#c9a227);font-weight:700;padding:2px 0">Tap to see what to do</summary><div class="sd" style="margin-top:4px;line-height:1.5">'+esc(d.body)+'</div></details></div>' +
     '</div>'
-  ).join('') +
-  '<details class="strength"><summary>Strength details (Mon + Wed, this week)</summary><div style="margin-top:6px">'+strengthDetailsForWeek(w)+'</div></details>' +
-  (({8:'3 mi',16:'4 mi',17:'4 mi',19:'5 mi'})[w] ? '<p class="hint" style="margin:8px 0 0 0">Back-to-back week: add an easy '+({8:'3 mi',16:'4 mi',17:'4 mi',19:'5 mi'})[w]+' walk/hike on Sunday after Saturday\u2019s long hike, flat and slow. The point is hiking on tired legs.</p>' : '');
+  ).join('');
   $('#weekSessions').querySelectorAll('input[data-sess]').forEach(cb=>{
     cb.onchange = ()=>{
       if(!store.data.done[wkKey]) store.data.done[wkKey] = {};
       store.data.done[wkKey][cb.dataset.sess] = cb.checked;
       store.save(); renderWeek();
-      const all = sessionsForWeek(w).every(s=>store.data.done[wkKey][s.key]);
+      const all = trainDays.every(s=>store.data.done[wkKey][s.key]);
       if(all && !store.data.celebrated[wkKey]){
         store.data.celebrated[wkKey]=true; store.save();
-        toast('Week '+w+' complete — all 5 sessions done! 🎉'); confetti();
-      } else if(cb.checked){ toast('Session done — nice work'); }
+        toast('Week '+w+' complete, all training days done! 🎉'); confetti();
+      } else if(cb.checked){ toast('Session done, nice work'); }
     };
   });
-  const nDone = sessions.filter(s=>doneMap[s.key]).length;
-  $('#weekDoneNote').innerHTML = nDone ? '<div class="pct" style="margin-top:8px">'+nDone+' of 5 sessions done this week</div>' : '';
+  const nDone = trainDays.filter(s=>doneMap[s.key]).length;
+  $('#weekDoneNote').innerHTML = nDone ? '<div class="pct" style="margin-top:8px">'+nDone+' of '+trainDays.length+' training days done this week</div>' : '';
 }
 function renderProgress(){
   const prog = computeProgress(store.data.entries);
@@ -1074,7 +1088,7 @@ document.addEventListener('DOMContentLoaded', init);
 /* Exposed for tests */
 window.__leconte = {PLAN, TARGETS, TRAILS, LS_KEY, PLAN_START, READY_BY,
   weekNumberFor, weekFor, weekInfo, phaseForWeek, daysUntilReady, inclineMinForWeek,
-  sessionsForWeek, strengthDetailsForWeek, todayInfo, stairsMinutesForWeek, validateEntry, computeTotals, computeProgress, coachInfo,
+  sessionsForWeek, strengthDetailsForWeek, todayInfo, weekDaysFor, stairsMinutesForWeek, validateEntry, computeTotals, computeProgress, coachInfo,
   plannedLongThroughLastWeek, VERSES, store};
 </script>
 </body>
