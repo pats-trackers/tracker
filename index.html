@@ -398,13 +398,28 @@ function sessionsForWeek(w){
      desc:'Pack '+p.packLb+' lb. Comfortable talk-the-whole-way pace, eat a small snack every hour, stop and fix any hot spot on your feet right away.'}
   ];
 }
-const STRENGTH_DETAILS =
-  '<b>Mon — Strength A (Week 1 spec):</b> Warm-up 5 min treadmill 8% at 2.8 mph + 10 squats, 10 lunges, 10 calf raises. ' +
-  'Box step-ups 3x8 each leg, 12-16 in box, bodyweight first week, step down slow (3 seconds) — that slow descent is LeConte descent training. ' +
-  'Bulgarian split squats 3x6 each leg, bodyweight. Dumbbell Romanian deadlift 3x10, RPE 6-7 (start 15-20 lb dumbbells if unsure, log the weight). ' +
-  'Walking lunges 2x16 steps. Calf raises 2x12 straight knee + 2x12 bent knee. Tibialis raises 2x12. Finish 8 min easy stair climber if time.' +
-  '<br><b>Wed — Strength B (Week 1 spec):</b> One-arm dumbbell row 3x10 each side. Push-ups 3x8-12 (incline on a bench if floor form breaks). ' +
-  'Lat pulldown 3x10. Dumbbell shoulder press 2x10 light. Core x3 rounds: dead bug 8 each side, plank 30 sec, Pallof press 10 each side.';
+function strengthDetailsForWeek(w){
+  const ph = phaseForWeek(w);
+  let a, b;
+  if(w===1){
+    a = 'Bodyweight week. Box step-ups 3x8/leg, 12-16 in box, step down SLOW (3 sec), that slow descent is LeConte descent training. Bulgarian split squats 3x6/leg bodyweight. DB Romanian deadlift 3x10, RPE 6-7 (start 15-20 lb dumbbells if unsure, log the weight). Walking lunges 2x16 steps. Calf raises 2x12 straight + 2x12 bent knee. Tibialis raises 2x12. Finish 8 min easy stair climber if time.';
+    b = 'One-arm DB row 3x10/side, RPE 6-7. Push-ups 3x8-12 (incline on a bench if floor form breaks). Lat pulldown 3x10. DB shoulder press 2x10 light. Core x3 rounds: dead bug 8/side, plank 30 sec, Pallof press 10/side.';
+  } else if(ph==='Base'){
+    a = 'Box step-ups 3x10/leg holding '+(w<=4?'5 lb':'5-10 lb')+' dumbbells, step down slow (3 sec). Split squats 3x8/leg, bodyweight or light dumbbells. RDL 3x10, add about 5 lb over your Week 1 weight if form stayed clean, RPE 6-7. Walking lunges 2x20 steps. Calf raises 3x12 straight + 2x12 bent. Tibialis raises 2x15. Finish 10 min stair climber easy.';
+    b = 'One-arm DB row 3x10/side. Push-ups 3x10-12. Lat pulldown 3x10, add a little weight if Week 1 felt easy. DB shoulder press 2x10. Core x3: dead bug 10/side, plank 35 sec, Pallof press 10/side. Finish 5 min easy incline walk.';
+  } else if(ph==='Build'){
+    a = 'Box step-ups 3x10/leg with 10-15 lb (dumbbells or your pack). Split squats 3x8/leg weighted, RPE 7. RDL 3x10, RPE 7-8, heaviest weight that keeps a flat back. Reverse lunges 2x10/leg, slow 3-sec lower. Calf raises 3x15 straight + 3x12 bent, single-leg if easy. Tibialis raises 2x15. Finish 10 min stair climber moderate.';
+    b = 'One-arm DB row 3x12/side, RPE 7. Push-ups 3x12. Lat pulldown 3x12. DB shoulder press 3x10. Farmers carry 3x40 steps heavy, grip and posture for poles and pack. Core x3: dead bug 10/side, plank 45 sec, Pallof press 12/side.';
+  } else if(ph==='Specific'){
+    a = 'Box step-ups 3x12/leg wearing your pack at this week\u2019s pack weight. Split squats 3x8/leg weighted, RPE 7-8. RDL 3x8, RPE 8. Single-leg RDL 2x8/leg light, balance focus. Calf raises 3x15 single-leg. Tibialis raises 2x15. Finish 12 min stair climber at pack weight. Keep the session under 60 min, drop the finish if you run long.';
+    b = 'One-arm DB row 3x12/side. Push-ups 3x12. Lat pulldown 3x12. DB shoulder press 3x10. Farmers carry 3x50 steps at pack weight or heavier. Pole practice: 10 min incline walk with trekking poles if your gym allows it. Core x3: dead bug 10/side, side plank 30 sec/side, Pallof press 12/side.';
+  } else {
+    a = 'TAPER, half volume, light. Box step-ups 2x8/leg bodyweight, slow descents. Split squats 2x6/leg bodyweight. RDL 2x8 light, RPE 5. Calf raises 2x12. Tibialis raises 2x12. No finish, no soreness this week.';
+    b = 'TAPER, light. Row 2x10/side easy. Push-ups 2x8. Lat pulldown 2x10 light. Core x2 easy rounds: dead bug 8/side, plank 30 sec. Done in about 35 min.';
+  }
+  return '<b>Mon, Strength A, Hiking Legs (50-55 min):</b> Warm-up 5 min treadmill 8% at 2.8 mph + 10 squats, 10 lunges, 10 calf raises. ' + a +
+         '<br><b>Wed, Strength B, Upper + Core (45-50 min):</b> Warm-up 5 min easy bike or row + band pull-aparts 2x12. ' + b;
+}
 
 /* ---------- verses (from the October Challenge app) ---------- */
 const VERSES = [
@@ -798,8 +813,8 @@ function renderWeek(){
       '<div><div class="st">'+esc(s.title)+'</div><div class="sd">'+esc(s.desc)+'</div></div>' +
     '</div>'
   ).join('') +
-  '<details class="strength"><summary>Strength details (Mon + Wed, Week 1 spec)</summary><div style="margin-top:6px">'+STRENGTH_DETAILS+'</div></details>' +
-  ((w===8||w===16) ? '<p class="hint" style="margin:8px 0 0 0">Back-to-back week: add an easy 3 mi walk/hike on Sunday after Saturday\u2019s long hike.</p>' : '');
+  '<details class="strength"><summary>Strength details (Mon + Wed, this week)</summary><div style="margin-top:6px">'+strengthDetailsForWeek(w)+'</div></details>' +
+  (({8:'3 mi',16:'4 mi',17:'4 mi',19:'5 mi'})[w] ? '<p class="hint" style="margin:8px 0 0 0">Back-to-back week: add an easy '+({8:'3 mi',16:'4 mi',17:'4 mi',19:'5 mi'})[w]+' walk/hike on Sunday after Saturday\u2019s long hike, flat and slow. The point is hiking on tired legs.</p>' : '');
   $('#weekSessions').querySelectorAll('input[data-sess]').forEach(cb=>{
     cb.onchange = ()=>{
       if(!store.data.done[wkKey]) store.data.done[wkKey] = {};
@@ -1008,7 +1023,7 @@ document.addEventListener('DOMContentLoaded', init);
 /* Exposed for tests */
 window.__leconte = {PLAN, TARGETS, TRAILS, LS_KEY, PLAN_START, READY_BY,
   weekNumberFor, weekFor, weekInfo, phaseForWeek, daysUntilReady, inclineMinForWeek,
-  sessionsForWeek, validateEntry, computeTotals, computeProgress, coachInfo,
+  sessionsForWeek, strengthDetailsForWeek, validateEntry, computeTotals, computeProgress, coachInfo,
   plannedLongThroughLastWeek, VERSES, store};
 </script>
 </body>
