@@ -8,262 +8,254 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="October">
+<meta name="apple-mobile-web-app-title" content="LeConte">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<title>October Challenge Tracker</title>
+<title>LeConte Training</title>
 <style>
   :root{
-    --blue:#2b8fc4; --blue-dark:#1c6e9c; --green:#6fce62; --green-dark:#3fa34d;
-    --navy:#17324a; --gold:#c9a227; --bg:#f2f7fb; --card:#ffffff;
-    --muted:#5b7183; --line:#e3edf3; --danger:#e5484d;
+    --blue:#2e7d5b; --blue-dark:#14532d; --green:#7fae56; --green-dark:#2f7a3a;
+    --navy:#17324a; --gold:#c9a227; --bg:#eef4f0; --card:#ffffff;
+    --muted:#5b7183; --line:#dce8df; --danger:#e5484d;
+    --evergreen:#0e2f25;
   }
   *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
-  
   body{margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     background:var(--bg); color:var(--navy); padding-bottom:96px;}
-  header.hero{background:linear-gradient(135deg,#7fb9d9 0%,#5aa9d6 35%,#6fce62 100%);
+  header.hero{background:linear-gradient(135deg,#0e2f25 0%,#134233 55%,#2f7a3a 130%);
     color:#fff; padding:24px 20px 18px; text-align:center; position:relative; overflow:hidden;}
-  header.hero h1{margin:0; font-size:30px; letter-spacing:.5px; font-weight:800; text-shadow:0 1px 2px rgba(0,0,0,.15);}
-  header.hero h1 .accent{color:#eafbe4;}
-  header.hero p{margin:6px 0 0; font-size:13px; letter-spacing:2px; opacity:.95; font-weight:600;}
+  header.hero h1{margin:0; font-size:30px; letter-spacing:.5px; font-weight:800; text-shadow:0 1px 2px rgba(0,0,0,.25);}
+  header.hero h1 .accent{color:#f3d47a;}
+  header.hero p{margin:6px 0 0; font-size:12px; letter-spacing:2px; opacity:.95; font-weight:600; color:#e9d8a6;}
   header.hero .sub{margin-top:8px; font-size:13px; letter-spacing:.5px; opacity:.9; font-weight:400;}
   main{max-width:560px; margin:0 auto; padding:0 14px;}
   .card{background:var(--card); border-radius:16px; padding:16px; margin-top:14px;
-    box-shadow:0 2px 10px rgba(23,50,74,.07); border:1px solid var(--line);}
-  .card h2{margin:0 0 10px; font-size:15px; letter-spacing:.4px; color:var(--navy);}
-
-  /* profile tabs */
-  .tabs{display:flex; gap:8px; margin-top:14px; overflow-x:auto; padding-bottom:2px;}
-  .tab{flex:1; min-width:120px; border:2px solid var(--line); background:#fff; border-radius:12px;
-    padding:10px 12px; cursor:pointer; text-align:left; font-family:inherit;}
-  .tab.active{border-color:var(--blue); background:#f0f8fd;}
-  .tab .nm{font-weight:700; font-size:15px; display:flex; align-items:center; gap:6px;}
-  .dot{width:10px; height:10px; border-radius:50%; display:inline-block;}
-  .tab .mi{font-size:12px; color:var(--muted); margin-top:2px;}
-  .cardsline{font-size:13px; color:var(--muted); margin:6px 2px 0;}
-  .cardsline b{color:var(--navy);}
-  .cardsline a{color:var(--blue-dark); font-weight:600;}
-  /* setup match picker */
-  .matchbtn{display:flex; align-items:center; gap:8px; width:100%; border:2px solid var(--line);
-    background:#fff; border-radius:12px; padding:12px; margin:8px 0; cursor:pointer;
-    font-family:inherit; font-size:15px; text-align:left;}
-  .matchbtn:active{border-color:var(--blue); background:#f0f8fd;}
-  .matchbtn .nm{font-weight:700;}
-  .matchbtn .mi{margin-left:auto; font-size:12px; color:var(--muted); white-space:nowrap;}
-
-  /* stats */
-  .big{font-size:44px; font-weight:800; line-height:1;}
+    box-shadow:0 2px 10px rgba(14,47,37,.08); border:1px solid var(--line);}
+  .card h2{margin:0 0 10px; font-size:15px; letter-spacing:.4px; color:var(--evergreen);}
+  .big{font-size:44px; font-weight:800; line-height:1; color:var(--evergreen);}
   .big small{font-size:16px; font-weight:600; color:var(--muted);}
-  .bar{height:12px; background:#e8f1f6; border-radius:99px; margin:12px 0 4px; overflow:hidden;}
-  .bar > div{height:100%; border-radius:99px; background:linear-gradient(90deg,var(--blue),var(--green));
+  .bar{height:12px; background:#e6efe8; border-radius:99px; margin:10px 0 4px; overflow:hidden;}
+  .bar > div{height:100%; border-radius:99px; background:linear-gradient(90deg,#2e7d5b,#c9a227);
     transition:width .5s ease;}
   .pct{font-size:13px; color:var(--muted); font-weight:600;}
-  .statgrid{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:12px;}
-  .stat{background:#f6fafd; border:1px solid var(--line); border-radius:12px; padding:8px 4px; text-align:center;}
+  .statgrid{display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:12px;}
+  .stat{background:#f3f8f3; border:1px solid var(--line); border-radius:12px; padding:8px 4px; text-align:center;}
   .stat .v{font-size:17px; font-weight:800;}
   .stat .l{font-size:9px; color:var(--muted); margin-top:2px; letter-spacing:.3px; line-height:1.35;}
-  #statsTitle{margin-bottom:4px;}
-  .bdrow{display:flex;align-items:center;gap:8px;margin-top:8px;font-size:13px;}
-  .bdrow .bl{display:flex;align-items:center;gap:5px;min-width:78px;font-weight:700;color:var(--muted);}
+  .bdrow{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:13px;}
+  .bdrow .bl{display:flex;align-items:center;gap:5px;min-width:86px;font-weight:700;color:var(--muted);}
   .bdrow .bt{margin-left:auto;font-variant-numeric:tabular-nums;color:var(--muted);white-space:nowrap;}
-  .bdbar{flex:1;height:8px;background:#eef4f8;border-radius:99px;overflow:hidden;}
-  .bdbar>div{height:100%;border-radius:99px;}
-  .lbhead{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:10px;}
-  .lbhead h2{margin:0;}
-  .lbsub{margin:2px 0 0;color:var(--muted);font-size:14px;}
-  .lbcount{background:#e8f1f8;color:#1c6e9c;font-weight:800;font-size:13px;padding:7px 14px;border-radius:99px;white-space:nowrap;}
-  .lbsearch{display:flex;align-items:center;gap:8px;background:#f2f7fb;border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:10px;}
-  .lbsearch input{border:none;background:none;outline:none;font-size:15px;width:100%;color:var(--navy);}
-  .lbaz{display:flex;gap:6px;overflow-x:auto;padding-bottom:10px;margin-bottom:2px;-webkit-overflow-scrolling:touch;}
-  .lbaz button{flex:0 0 auto;border:1px solid var(--line);background:#fff;border-radius:10px;min-width:36px;padding:7px 4px;font-weight:700;color:var(--navy);font-size:14px;}
-  .lbaz button.on{background:#e8f1f8;border-color:#2b8fc4;color:#1c6e9c;}
-  .lbfoot{color:var(--muted);font-size:13px;margin:8px 0 2px;}
-  .lbperson{display:flex;gap:10px;align-items:flex-start;padding:12px 2px;border-bottom:1px solid var(--line);}
-  .lbperson:last-child{border-bottom:none;}
-  .lbperson.me{background:#eaf5fc;border:1px solid var(--blue);border-radius:14px;padding:12px 10px;}
-  .lbperson.me:last-child{border-bottom:1px solid var(--blue);}
-  .youbadge{font-size:11px;font-weight:800;color:#fff;background:var(--blue);border-radius:99px;padding:2px 8px;margin-left:6px;vertical-align:2px;}
-    .lbname{flex:0 0 84px;display:flex;align-items:center;gap:6px;font-weight:800;font-size:15px;padding-top:9px;overflow:hidden;}
-  .lbname span.nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-  .lbcards{flex:1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;min-width:0;align-items:start;}
-  .lbctile.empty{visibility:hidden;}
-  .lbctile{min-width:0;overflow:hidden;border-radius:14px;padding:9px 9px 10px;color:#fff;
-    background:linear-gradient(135deg,var(--c1),var(--c2));box-shadow:0 2px 8px rgba(0,0,0,.14);}
-  .lbctile.done{box-shadow:0 0 0 2px #f3d47a,0 2px 10px rgba(0,0,0,.16);}
-  .lbcrow{display:flex;justify-content:space-between;align-items:center;gap:4px;font-size:12px;font-weight:700;white-space:nowrap;}
-  .lbcrow b{font-weight:800;}
-  .lbcbar{height:8px;background:rgba(255,255,255,.35);border-radius:99px;margin-top:7px;overflow:hidden;}
-  .lbcbar>div{height:100%;background:#fff;border-radius:99px;}
-
-  .gchip .dot{margin-right:2px;}
-  .gchip.active.c20{border-color:#3fa34d; background:#e9f7ec; color:#2f7a3a;}
-  .gchip.active.c50{border-color:var(--blue); background:#eaf5fc; color:var(--blue-dark);}
-  .gchip.active.c100{border-color:#e5484d; background:#fdecec; color:#b3272e;}
-  .cbtn{border:2px solid var(--line); background:#fff; border-radius:99px; min-width:44px; padding:10px 14px;
-    font-size:12.5px; font-weight:800; cursor:pointer; font-family:inherit; color:var(--muted);}
-  .cbtn.on.c20{border-color:#3fa34d; background:#e9f7ec; color:#2f7a3a;}
-  .cbtn.on.c50{border-color:var(--blue); background:#eaf5fc; color:var(--blue-dark);}
-  .cbtn.on.c100{border-color:#e5484d; background:#fdecec; color:#b3272e;}
-  .chrow{display:flex; gap:6px; align-items:center; margin-top:6px;}
-  .chrow .cl{font-size:11.5px; color:var(--muted); font-weight:700; margin-right:2px;}
-  .nudge{display:none; background:#fff8e1; border:1px solid #ffe082; color:#7a5c00; border-radius:12px;
-    padding:8px 12px; margin-top:10px; font-size:13px; font-weight:600; line-height:1.45;}
-  .nudge a{color:#b3272e; font-weight:800;}
-  .nudge.top{margin:0; border-radius:0; border-left:0; border-right:0; border-top:0; text-align:center;}
+  .bdbar{flex:1;height:8px;background:#eef4f0;border-radius:99px;overflow:hidden;}
+  .bdbar>div{height:100%;border-radius:99px;background:linear-gradient(90deg,#2e7d5b,#c9a227);}
   .coach-line{font-size:14px; line-height:1.55; margin:6px 0;}
   .coach-line:first-child{margin-top:0;} .coach-line:last-child{margin-bottom:0;}
   .coach-big{font-size:15px; font-weight:800;}
   .coach-ok{color:#2f7a3a;} .coach-warn{color:#b3272e;} .coach-mid{color:#8a6d00;}
-  /* slim verse strip */
   .verse-strip{margin-top:10px; padding:10px 14px;
     background:linear-gradient(135deg,#fdf6e3,#fbeed1); border:1px solid #ecd9a8; border-radius:14px;}
   .verse-strip .vtext{font-size:13.5px; line-height:1.5; font-style:italic; color:#4a3c14;
     display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;}
   .verse-strip .vmeta{font-size:11.5px; color:#8a6d1a; margin-top:3px; font-weight:700;}
   .verse-strip .vmeta .vtimer{color:var(--muted); font-weight:400;}
-  /* bubbles */
-  .bubbles{display:grid; grid-template-columns:repeat(7,1fr); gap:8px; margin-top:6px;}
+  .bubbles{display:grid; grid-template-columns:repeat(6,1fr); gap:8px; margin-top:6px;}
   .bub{aspect-ratio:1; border-radius:50%; border:2px solid #d8b93c; color:#b8932a; background:#fffdf4;
-    display:flex; align-items:center; justify-content:center; font-weight:700; font-size:14px; cursor:pointer;
+    display:flex; align-items:center; justify-content:center; font-weight:700; font-size:13px;
     -webkit-tap-highlight-color:transparent; user-select:none;}
-  .bub.done{border-color:transparent; color:#fff; background:linear-gradient(135deg,var(--blue),var(--green));
-    box-shadow:0 2px 6px rgba(43,143,196,.35);}
-  .bub.done.c20{background:linear-gradient(135deg,#6fce62,#2f9e44); box-shadow:0 2px 6px rgba(63,163,77,.35);}
-  .bub.done.c50{background:linear-gradient(135deg,#5aa9d6,#6fce62); box-shadow:0 2px 6px rgba(43,143,196,.35);}
-  .bub.done.c100{background:linear-gradient(135deg,#ff8787,#c92a2a); box-shadow:0 2px 6px rgba(201,42,42,.35);}
-  .bubbles.c20{grid-template-columns:repeat(5,1fr);}
-  .bubbles.c100{grid-template-columns:repeat(10,1fr); gap:6px;}
-  .bubbles.c100 .bub{font-size:11px; border-width:1.5px;}
-  /* toggle switches */
+  .bub.done{border-color:transparent; color:#fff; background:linear-gradient(135deg,#134233,#2f7a3a);
+    box-shadow:0 2px 6px rgba(14,47,37,.35);}
   .switchrow{display:flex; align-items:center; justify-content:space-between; padding:10px 2px; font-weight:600; font-size:15px;}
   .switch{position:relative; width:46px; height:26px; flex:none;}
   .switch input{opacity:0; width:100%; height:100%; position:absolute; margin:0; cursor:pointer; z-index:2;}
   .switch .sl{position:absolute; inset:0; background:#cfd6dd; border-radius:999px; transition:.2s;}
   .switch .sl:before{content:''; position:absolute; width:20px; height:20px; left:3px; top:3px; background:#fff; border-radius:50%; transition:.2s; box-shadow:0 1px 3px rgba(0,0,0,.25);}
-  .switch input:checked + .sl{background:var(--green);}
+  .switch input:checked + .sl{background:var(--green-dark);}
   .switch input:checked + .sl:before{transform:translateX(20px);}
-  /* activity chip icon tap animation */
-  .chip .aicon{display:inline-block;}
-  .chip .aicon.pop{animation:chipPop .55s ease;}
-  @keyframes chipPop{0%{transform:scale(1) rotate(0);}35%{transform:scale(1.5) rotate(-14deg);}70%{transform:scale(.92) rotate(8deg);}100%{transform:scale(1) rotate(0);}}
-  .complete-badge{background:linear-gradient(135deg,var(--gold),#f0c94a); color:#5c430a; font-weight:800;
-    text-align:center; border-radius:12px; padding:10px; margin-top:12px;}
-
-  /* form */
   label.fl{display:block; font-size:12.5px; font-weight:700; color:var(--muted); margin:12px 0 6px; letter-spacing:.3px;}
   label.fl:first-child{margin-top:0;}
-  input[type=date],input[type=number],input[type=text],input[type=url],input[type=password],textarea{
+  input[type=date],input[type=number],input[type=text],input[type=url],select,textarea{
     width:100%; padding:12px; font-size:16px; border:2px solid var(--line); border-radius:12px; font-family:inherit;
     color:var(--navy); background:#fff;}
-  input:focus,textarea:focus{outline:none; border-color:var(--blue);}
+  input:focus,select:focus,textarea:focus{outline:none; border-color:var(--blue);}
+  .formgrid{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+  .formgrid .full{grid-column:1 / -1;}
   .chips{display:flex; flex-wrap:wrap; gap:8px;}
   .chip{border:2px solid var(--line); background:#fff; border-radius:99px; padding:9px 14px; font-size:14px;
     font-weight:600; cursor:pointer; font-family:inherit; color:var(--navy);}
-  .chip.active{border-color:var(--blue); background:#eaf5fc; color:var(--blue-dark);}
-  .milesrow{display:flex; gap:8px; align-items:stretch;}
-  .stepper{width:52px; border:2px solid var(--line); background:#fff; border-radius:12px; font-size:22px;
-    cursor:pointer; color:var(--blue-dark); font-weight:700;}
+  .chip.active{border-color:var(--blue); background:#eaf5ec; color:var(--blue-dark);}
   .btn{width:100%; margin-top:14px; padding:14px; border:none; border-radius:14px; font-size:16px; font-weight:800;
-    color:#fff; background:linear-gradient(135deg,var(--blue),var(--green-dark)); cursor:pointer; font-family:inherit;}
+    color:#fff; background:linear-gradient(135deg,#134233,var(--green-dark)); cursor:pointer; font-family:inherit;}
   .btn:active{transform:scale(.98);}
   .btn.secondary{background:#fff; color:var(--blue-dark); border:2px solid var(--blue); margin-top:8px;}
   .btn.danger{background:#fff; color:var(--danger); border:2px solid var(--danger);}
-
-  /* leaderboard */
-  .lbrow{margin-bottom:12px;}
-  .lbrow:last-child{margin-bottom:0;}
-  .lbrow .top{display:flex; justify-content:space-between; font-size:14px; font-weight:700; margin-bottom:6px;}
-  .lbrow .top .sc{color:var(--muted); font-weight:600;}
-  .ahead{font-size:12px; color:var(--green-dark); font-weight:700; margin-top:4px;}
-
-  /* entries */
   .entry{display:flex; gap:10px; align-items:center; padding:10px 0; border-bottom:1px solid var(--line);}
   .entry:last-child{border-bottom:none;}
-  .eicon{font-size:22px; width:40px; height:40px; border-radius:12px; background:#f0f8fd;
+  .eicon{font-size:22px; width:40px; height:40px; border-radius:12px; background:#eef6ee;
     display:flex; align-items:center; justify-content:center; flex-shrink:0;}
   .einfo{flex:1; min-width:0;}
   .einfo .t{font-weight:700; font-size:14.5px;}
   .einfo .d{font-size:12px; color:var(--muted);}
-  .emi{font-weight:800; font-size:15px; white-space:nowrap;}
+  .emi{font-weight:800; font-size:14px; white-space:nowrap; text-align:right;}
   .eact{background:none; border:none; font-size:16px; cursor:pointer; padding:6px; color:var(--muted);}
   .empty{color:var(--muted); font-size:14px; text-align:center; padding:18px 0;}
-
-  /* settings */
+  .sess{display:flex; gap:10px; padding:11px 0; border-bottom:1px solid var(--line); align-items:flex-start;}
+  .sess:last-child{border-bottom:none;}
+  .sess input[type=checkbox]{width:22px; height:22px; margin-top:2px; flex:none; accent-color:#2f7a3a;}
+  .sess .st{font-weight:700; font-size:14.5px;}
+  .sess .sd{font-size:13px; color:var(--muted); line-height:1.45; margin-top:2px;}
+  .sess.done .st{color:var(--muted); text-decoration:line-through;}
+  details.strength{margin:4px 0 2px 32px; font-size:13px; line-height:1.6; color:var(--navy);}
+  details.strength summary{cursor:pointer; font-weight:700; color:var(--blue-dark);}
+  .daychip{flex:none; font-size:11px; font-weight:800; letter-spacing:.5px; color:#fff; background:#134233;
+    border-radius:8px; padding:4px 7px; margin-top:2px; min-width:38px; text-align:center;}
   #settingsBtn{position:fixed; right:16px; bottom:16px; width:56px; height:56px; border-radius:50%;
-    border:none; background:var(--navy); color:#fff; font-size:24px; cursor:pointer;
+    border:none; background:var(--evergreen); color:#fff; font-size:24px; cursor:pointer;
     box-shadow:0 4px 14px rgba(0,0,0,.25); z-index:40;}
-  .modal{position:fixed; inset:0; background:rgba(23,50,74,.5); display:none; z-index:50;
+  .modal{position:fixed; inset:0; background:rgba(14,47,37,.5); display:none; z-index:50;
     align-items:flex-end; justify-content:center;}
   .modal.open{display:flex;}
   .sheet{background:#fff; width:100%; max-width:560px; border-radius:20px 20px 0 0; padding:20px;
     max-height:88vh; overflow-y:auto;}
   .sheet h2{margin:0 0 4px; font-size:18px;}
-  .sheet h3{font-size:14px; margin:20px 0 8px; color:var(--navy);}
+  .sheet h3{font-size:14px; margin:20px 0 8px; color:var(--evergreen);}
   .sheet .hint{font-size:13px; color:var(--muted); margin:0 0 8px; line-height:1.45;}
-  .prow{display:flex; align-items:center; gap:8px; padding:8px 0; border-bottom:1px solid var(--line);}
-  .prow .nm{flex:1; font-weight:700;}
-  .prow button{border:1px solid var(--line); background:#fff; border-radius:8px; padding:6px 10px;
-    font-size:13px; cursor:pointer; font-family:inherit;}
+  .hint{font-size:13px; color:var(--muted); line-height:1.45;}
   .status{font-size:13px; margin-top:8px; font-weight:600;}
   .status.ok{color:var(--green-dark);} .status.err{color:var(--danger);}
   .closeRow{display:flex; justify-content:flex-end;}
   .closeRow button{background:none;border:none;font-size:20px;cursor:pointer;color:var(--muted);}
-
-  #toast{position:fixed; left:50%; bottom:84px; transform:translateX(-50%) translateY(20px); background:var(--navy);
+  #toast{position:fixed; left:50%; bottom:84px; transform:translateX(-50%) translateY(20px); background:var(--evergreen);
     color:#fff; padding:12px 18px; border-radius:12px; font-size:14px; font-weight:600; opacity:0;
     transition:all .25s; pointer-events:none; z-index:60; max-width:90vw; text-align:center;}
   #toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
   #confetti{position:fixed; inset:0; pointer-events:none; display:none; z-index:55;}
   .foot{text-align:center; color:var(--muted); font-size:12px; margin-top:18px; line-height:1.6;}
+  .complete-badge{background:linear-gradient(135deg,var(--gold),#f0c94a); color:#5c430a; font-weight:800;
+    text-align:center; border-radius:12px; padding:10px; margin-top:12px;}
 </style>
 </head>
 <body>
-<div class="nudge top" id="nudge"></div>
 
 <header class="hero">
-  <h1>October <span class="accent">Challenge</span></h1>
-  <p>RUN · WALK · HIKE · CYCLE · SWIM · ROW</p>
-  <div class="sub">20 · 50 · 100 miles through October</div>
+  <h1>⛰️ LeConte <span class="accent">Training</span></h1>
+  <p>MT. LECONTE · 6,593 FT · TRAIN FOR THE CLIMB</p>
+  <div class="sub">Mt. LeConte · Great Smoky Mountains · April 2027</div>
 </header>
 
 <main>
-  <div class="chips" id="goalChips" style="margin-top:10px"></div>
-  <div class="cardsline" id="cardsLine"></div>
-
-  <section class="card" id="statsCard">
-    <h2 id="statsTitle">Progress</h2>
-    <div class="big"><span id="totalMi">0</span> <small id="goalMi">/ 50 mi</small></div>
-    <div class="bar"><div id="barFill" style="width:0%"></div></div>
-    <div class="pct" id="pctTxt">0% complete</div>
-    <div class="statgrid">
-      <div class="stat"><div class="v" id="stRemain">50</div><div class="l">TO GO</div></div>
-      <div class="stat"><div class="v" id="stPace">1.6</div><div class="l">MI / DAY</div></div>
-      <div class="stat"><div class="v" id="stStreak">0</div><div class="l">STREAK</div></div>
-      <div class="stat"><div class="v" id="stBest">0</div><div class="l">BEST DAY</div></div>
-    </div>
-    <div id="goalBreakdown"></div>
-    <div id="completeBadge"></div>
+  <section class="card" id="setupCard" style="display:none">
+    <h2>Welcome! 🥾</h2>
+    <p class="hint">Set up your LeConte training tracker in 10 seconds.</p>
+    <label class="fl" for="setupName">Your name</label>
+    <input type="text" id="setupName" placeholder="Your name" maxlength="30" autocomplete="off">
+    <label class="fl" for="setupTrail">Summit trail</label>
+    <select id="setupTrail"></select>
+    <button class="btn" id="setupStart" type="button">Start training</button>
+    <button class="btn secondary" id="setupSkip" type="button">Skip — use defaults (Pat · Alum Cave)</button>
   </section>
 
-  <section style="margin-top:10px; display:flex; gap:10px;">
-    <button class="btn" id="openLogBtn" type="button" style="flex:1.25; margin-top:0; font-size:17px; padding:14px 6px;">＋ Log miles</button>
-    <button class="btn secondary" id="openLbBtn" type="button" style="flex:1; margin-top:0; font-size:17px; padding:14px 6px;">🏆 Leaderboard</button>
+  <section class="card" id="countdownCard">
+    <h2>⏳ Countdown</h2>
+    <div class="big"><span id="cdDays">—</span> <small>days to go</small></div>
+    <div class="pct" id="cdLabel" style="margin-top:6px">Ready-by Apr 15 · exact trip date TBD</div>
+    <div class="statgrid">
+      <div class="stat"><div class="v" id="cdWeek">—</div><div class="l">TRAINING WEEK</div></div>
+      <div class="stat"><div class="v" id="cdPhase">—</div><div class="l">PHASE</div></div>
+      <div class="stat"><div class="v" id="cdTrail">—</div><div class="l">SUMMIT TRAIL</div></div>
+    </div>
+  </section>
+
+  <section class="card" id="weekCard">
+    <h2>📅 This Week <span id="weekMeta" style="color:var(--muted);font-weight:600"></span></h2>
+    <p class="hint" id="weekFocus" style="margin:0 0 4px"></p>
+    <div id="weekSessions"></div>
+    <div id="weekDoneNote"></div>
+  </section>
+
+  <section class="card" id="progressCard">
+    <h2>📈 Progress</h2>
+    <div class="big"><span id="overallPct">0</span><small>% overall</small></div>
+    <div class="bar"><div id="overallBar" style="width:0%"></div></div>
+    <div id="progressRows"></div>
+    <div class="statgrid">
+      <div class="stat"><div class="v" id="stMiles">0</div><div class="l">MILES LOGGED</div></div>
+      <div class="stat"><div class="v" id="stFt">0</div><div class="l">VERTICAL FT</div></div>
+      <div class="stat"><div class="v" id="stSessions">0</div><div class="l">SESSIONS</div></div>
+    </div>
+    <button class="btn" id="shareBtn" type="button">📸 Share my progress</button>
   </section>
 
   <section class="card" id="coachCard">
-    <h2>🎯 Game plan <span id="coachGoal" style="color:var(--muted);font-weight:600"></span></h2>
+    <h2>🎯 Game plan</h2>
     <div id="coach"></div>
   </section>
 
   <section class="card" id="bubblesCard">
     <h2>Mile bubbles</h2>
-    <p class="hint" style="margin:0 0 2px">Tap a bubble to log miles up to that number.</p>
+    <p class="hint" style="margin:0 0 2px">One bubble for every 5 miles, up to the 150-mile target.</p>
     <div class="bubbles" id="bubbles"></div>
   </section>
 
+  <section class="card" id="logCard">
+    <h2>＋ Log Session</h2>
+    <form id="logForm" onsubmit="return false;">
+      <div class="formgrid">
+        <div>
+          <label class="fl" for="fDate">Date</label>
+          <input type="date" id="fDate">
+        </div>
+        <div>
+          <label class="fl" for="fType">Type</label>
+          <select id="fType">
+            <option>Hike</option>
+            <option>Incline Walk</option>
+            <option>Stairs</option>
+            <option>Strength A</option>
+            <option>Strength B</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div>
+          <label class="fl" for="fMiles">Miles</label>
+          <input type="number" id="fMiles" min="0" step="0.1" placeholder="0" inputmode="decimal">
+        </div>
+        <div>
+          <label class="fl" for="fFt">Vertical ft</label>
+          <input type="number" id="fFt" min="0" step="1" placeholder="0" inputmode="numeric">
+        </div>
+        <div>
+          <label class="fl" for="fMinutes">Minutes</label>
+          <input type="number" id="fMinutes" min="0" step="1" placeholder="0" inputmode="numeric">
+        </div>
+        <div>
+          <label class="fl" for="fPack">Pack lb</label>
+          <input type="number" id="fPack" min="0" step="1" placeholder="0" inputmode="numeric">
+        </div>
+        <div>
+          <label class="fl" for="fPain">Pain (0–10)</label>
+          <select id="fPain">
+            <option value="0">0 — none</option><option value="1">1</option><option value="2">2</option>
+            <option value="3">3</option><option value="4">4</option><option value="5">5</option>
+            <option value="6">6</option><option value="7">7</option><option value="8">8</option>
+            <option value="9">9</option><option value="10">10 — stop</option>
+          </select>
+        </div>
+        <div>
+          <label class="fl" for="fNote">Note <span style="font-weight:400">(optional)</span></label>
+          <input type="text" id="fNote" placeholder="Alafia hills, boots felt good…" maxlength="120">
+        </div>
+      </div>
+      <button class="btn" id="submitBtn" type="submit">Log session</button>
+    </form>
+  </section>
+
   <section class="card">
-    <h2>Recent entries</h2>
+    <h2>Recent sessions</h2>
     <div id="entries"></div>
+  </section>
+
+  <section class="card" id="boardCard">
+    <h2>🏆 Training board</h2>
+    <div id="boardBody"></div>
+    <div class="status" id="boardStatus"></div>
   </section>
 
   <section class="verse-strip" id="verseCard">
@@ -271,93 +263,16 @@
     <div class="vmeta">📖 <span id="verseRef"></span> · <span class="vtimer" id="verseTimer"></span></div>
   </section>
 
-  <div class="foot">October Challenge · Oct 1–31, 2026<br>Upload your completed card by Nov 12</div>
+  <div class="foot">LeConte Training · Nov 2026 - Apr 2027 · Train for the climb, enjoy the climb</div>
 </main>
-
-<div class="modal" id="logModal">
-  <div class="sheet">
-    <div class="closeRow"><button id="closeLog" aria-label="Close">✕</button></div>
-    <h2 id="formTitle">Log miles</h2>
-    <form id="logForm" onsubmit="return false;">
-      <label class="fl" for="fDate">Date</label>
-      <input type="date" id="fDate" min="2026-10-01" max="2026-10-31" required>
-      <label class="fl">Activity</label>
-      <div class="chips" id="actChips"></div>
-      <label class="fl" for="fMiles">Miles</label>
-      <div class="milesrow">
-        <button type="button" class="stepper" id="mMinus" aria-label="less">−</button>
-        <input type="number" id="fMiles" min="0.1" max="100" step="0.1" placeholder="e.g. 2.5" inputmode="decimal" required>
-        <button type="button" class="stepper" id="mPlus" aria-label="more">+</button>
-      </div>
-      <label class="fl" for="fNote">Note <span style="font-weight:400">(optional)</span></label>
-      <input type="text" id="fNote" placeholder="Morning walk at the park…" maxlength="120">
-      <button class="btn" id="submitBtn" type="submit">Add miles</button>
-      <button class="btn secondary" id="cancelEdit" type="button" style="display:none">Cancel edit</button>
-    </form>
-  </div>
-</div>
-
-<div class="modal" id="setupModal">
-  <div class="sheet">
-   <div id="setupForm">
-    <h2>Welcome! 🎉</h2>
-    <p class="hint">Set up your tracker in 10 seconds.</p>
-    <label class="fl" for="setupName">Your name</label>
-    <input type="text" id="setupName" placeholder="Your name" maxlength="30" autocomplete="off">
-    <label class="fl">Challenge cards</label>
-    <div class="chips" id="setupChips"></div>
-    <p class="hint" style="margin-top:8px">Pick one, two, or all three — your miles fill them in order.</p>
-    <label class="fl">Who sees my miles?</label>
-    <div class="chips" id="setupShare">
-      <button type="button" class="chip active" data-share="join">🏆 Join the leaderboard</button>
-      <button type="button" class="chip" data-share="private">🔒 Just me</button>
-    </div>
-    <p class="hint" style="margin-top:8px" id="setupShareHint">Your name and cards show on the shared board.</p>
-    <button class="btn" id="setupStart" type="button">Start tracking</button>
-   </div>
-   <div id="setupMatches" style="display:none">
-    <h2>Is one of these you? 🤔</h2>
-    <p class="hint" id="setupMatchesHint"></p>
-    <div id="setupMatchList"></div>
-    <button class="btn secondary" id="setupMatchNew" type="button" style="margin-top:10px">None of these — create my tracker</button>
-    <button class="btn secondary" id="setupMatchBack" type="button" style="margin-top:8px">← Back and add my last name</button>
-   </div>
-  </div>
-</div>
 
 <div class="modal" id="installModal">
   <div class="sheet">
     <h2>📲 Install the app</h2>
-    <p class="hint" id="installHint">Add October Challenge to your home screen for one-tap access.</p>
+    <p class="hint" id="installHint">Add LeConte Training to your home screen for one-tap access.</p>
     <div id="installSteps"></div>
     <button class="btn" id="installGo" type="button" style="display:none">Install app</button>
     <button class="btn secondary" id="installLater" type="button">Not now</button>
-  </div>
-</div>
-
-<div class="modal" id="cardsModal">
-  <div class="sheet">
-    <div class="closeRow"><button id="closeCards" aria-label="Close">✕</button></div>
-    <h2>Challenge cards</h2>
-    <p class="hint">Pick the distances you're doing. Your miles fill them in order: 20, then 50, then 100.</p>
-    <div class="chips" id="cardsChips"></div>
-    <button class="btn" id="cardsDone" type="button" style="margin-top:14px">Done</button>
-  </div>
-</div>
-
-<div class="modal" id="lbModal">
-  <div class="sheet">
-    <div class="closeRow"><button id="closeLb" aria-label="Close">✕</button></div>
-    <div class="lbhead">
-      <div><h2 id="lbTitle">Leaderboard</h2><p class="lbsub">First name · A-Z</p></div>
-      <div class="lbcount" id="lbCount"></div>
-    </div>
-    <div class="lbsearch"><span aria-hidden="true">🔍</span><input id="lbSearch" type="search" placeholder="Search by name" autocomplete="off" aria-label="Search by name"></div>
-    <div class="lbaz" id="lbAz"></div>
-    <div id="leaderboard"></div>
-    <div class="lbfoot" id="lbFoot"></div>
-    <button class="btn" id="myStoryBtn" type="button" style="margin-top:10px">📸 Share my progress</button>
-    <button class="btn secondary" id="storyBtn" type="button" style="margin-top:8px">📸 Share leaderboard</button>
   </div>
 </div>
 
@@ -368,26 +283,25 @@
     <div class="closeRow"><button id="closeSettings" aria-label="Close">✕</button></div>
     <h2>Settings</h2>
 
-    <h3>Trackers</h3>
-    <p class="hint">Your tracker is below — rename it any time. Use the 20 / 50 / 100 buttons to pick which distances you're doing. Everyone else shows up on the shared leaderboard.</p>
-    <div id="profileList"></div>
-    <button class="btn secondary" id="installRow" type="button" style="margin-top:8px">📲 Install app</button>
+    <h3>Your training</h3>
+    <label class="fl" for="setName">Name</label>
+    <input type="text" id="setName" maxlength="30" autocomplete="off">
+    <label class="fl" for="setTrail">Summit trail</label>
+    <select id="setTrail"></select>
+    <button class="btn" id="saveProfile" type="button">Save</button>
 
     <h3>Customize</h3>
     <p class="hint">Show or hide parts of the app.</p>
     <div id="displayToggles"></div>
 
     <h3>Shared board</h3>
-    <label class="switchrow"><span>🏆 Shared leaderboard</span><span class="switch"><input type="checkbox" id="shareToggle"><span class="sl"></span></span></label>
-    <p class="hint" id="shareHint"></p>
-    <label class="switchrow"><span>🔧 Organizer tools</span><span class="switch"><input type="checkbox" id="orgToggle"><span class="sl"></span></span></label>
-    <p class="hint">Lets this device rename or remove anyone's tracker. Keep it off unless you're running the board.</p>
     <div class="status" id="cloudStatus"></div>
-    <button class="btn secondary" id="cloudRefresh" type="button" style="display:none">Refresh from cloud</button>
-    <button class="btn secondary" id="cloudInvite" type="button" style="display:none">📋 Copy invite link</button>
+    <button class="btn secondary" id="cloudRefresh" type="button">Retry shared board</button>
+    <button class="btn secondary" id="installRow" type="button" style="margin-top:8px">📲 Install app</button>
 
     <h3>Data</h3>
-    <button class="btn danger" id="wipeData" type="button">Erase all local data</button>
+    <p class="hint">Erase only removes this app's LeConte data on this device.</p>
+    <button class="btn danger" id="wipeData" type="button">Erase local data</button>
   </div>
 </div>
 
@@ -398,24 +312,101 @@
 <script>
 "use strict";
 const $ = s => document.querySelector(s);
-const CHALLENGES = {
-  20:  {miles:20,  label:'20-Mile',  css:'c20',  solid:'#3fa34d', deep:'#2f8f3e', grad:'linear-gradient(90deg,#6fce62,#2f9e44)'},
-  50:  {miles:50,  label:'50-Mile',  css:'c50',  solid:'#2b8fc4', deep:'#1c6e9c', grad:'linear-gradient(90deg,#5aa9d6,#6fce62)'},
-  100: {miles:100, label:'100-Mile', css:'c100', solid:'#e5484d', deep:'#c92a2a', grad:'linear-gradient(90deg,#ff8787,#c92a2a)'}
+
+/* ---------- trails ---------- */
+const TRAILS = {
+  alum:            {label:'Alum Cave',        desc:'11 mi · 2,700 ft',   mi:11,   ft:2700},
+  rainbowBullhead: {label:'Rainbow + Bullhead', desc:'14 mi · 4,000 ft', mi:14,   ft:4000},
+  trillium:        {label:'Trillium Gap',     desc:'13.9 mi · 3,300 ft', mi:13.9, ft:3300},
+  boulevard:       {label:'Boulevard',        desc:'16.2 mi · 2,700 ft', mi:16.2, ft:2700}
 };
-const ACTIVITIES = {
-  run:  {label:'Run',  icon:'🏃'},
-  walk: {label:'Walk', icon:'🚶'},
-  hike: {label:'Hike', icon:'🥾'},
-  cycle:{label:'Cycle',icon:'🚴'},
-  swim: {label:'Swim', icon:'🏊'},
-  row:  {label:'Row',  icon:'🚣'}
-};
-// Never crash on an unknown activity (e.g. a hand-edited entry): fall back to
-// the raw value so the miles still log and sync.
-function actLabel(){ return ((typeof selectedActivity!=='undefined' && ACTIVITIES[selectedActivity]) || {label:selectedActivity||'walk'}).label.toLowerCase(); }
-// Rotating encouragement: verses on caring for the body, discipline, and doing hard things.
-// A new one is picked every 4 hours, always different from the last.
+function trailOf(key){ return TRAILS[key] || TRAILS.alum; }
+
+/* ---------- the 24-week plan ---------- */
+const PLAN_ROWS = [
+  [3,700,0],[4,900,0],[5,1100,5],[3.5,800,5],
+  [6,1300,8],[6.5,1500,10],[7,1700,10],[5,1200,8],
+  [7,1800,10],[8,2000,12],[8.5,2100,12],[6,1500,10],
+  [9,2300,12],[9.5,2400,12],[10,2600,15],[7,1800,12],
+  [10.5,2700,15],[11,2800,15],[9,2200,15],[12,3000,15],
+  [11,2700,15],[8,1800,12],[5,1200,8],[3,600,0]
+];
+const PLAN_FOCUS = [
+  'Learn the movements, break in boots, finish fresh','Build the habit — easy miles, steady stairs',
+  'First pack weight — keep it light and easy','Deload — easy week, absorb the work',
+  'Find hills: Alafia if you can','Practice layers, food and water on the long hike',
+  'Longest hike yet this block — steady, not fast','Deload + back-to-back test: easy 3 mi Sun after Sat',
+  'Build phase — climbing volume steps up','Double-digit stairs week — stay patient on descents',
+  'Strong week — full focus on the Saturday hike','Deload — easy week, absorb the work',
+  'Specific phase starts — hike like the trip','Back-to-back weekends begin soon — recover well',
+  'First 15 lb pack week — dress rehearsal habits','Deload + back-to-back: Sat long, Sun easy',
+  'Peak building — big Saturday, easy everything else','Peak building — trust the base you built',
+  'Slight step back before the peak','PEAK — dress rehearsal: dawn start, exact gear, exact food',
+  'Last big week — same gear, same fuel, nothing new','Taper — cut volume, keep legs moving',
+  'Taper — short and easy, sleep and eat well','Trip week — summit week. Easy walks, then climb.'
+];
+const PLAN = PLAN_ROWS.map((r,i)=>({week:i+1, longMi:r[0], stairsFt:r[1], packLb:r[2], focus:PLAN_FOCUS[i]}));
+const TARGETS = {miles:150, ft:35000, sessions:110};
+const PLAN_START = new Date(2026,10,9);       // Mon Nov 9, 2026
+const READY_BY   = new Date(2027,3,15);       // Apr 15, 2027
+
+function phaseForWeek(w){
+  if(w<=8) return 'Base';
+  if(w<=16) return 'Build';
+  if(w<=21) return 'Specific';
+  return 'Taper / Trip';
+}
+function startOfDay(d){ return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
+function parseLocalDate(ds){
+  if(ds && typeof ds.getTime==='function' && isFinite(ds.getTime())) return startOfDay(ds);
+  const p = String(ds||'').split('-').map(Number);
+  if(p.length===3 && p[0]) return new Date(p[0], p[1]-1, p[2]);
+  return startOfDay(new Date());
+}
+/* Raw week number: 0 before the plan starts, 1 = Nov 9-15 2026, grows past 24. */
+function weekNumberFor(d){
+  const days = Math.floor((parseLocalDate(d) - PLAN_START)/86400000);
+  if(days < 0) return 0;
+  return Math.floor(days/7) + 1;
+}
+function weekFor(d){ return Math.max(1, Math.min(24, weekNumberFor(d))); }
+function weekInfo(d){
+  const raw = weekNumberFor(d);
+  const week = Math.max(1, Math.min(24, raw));
+  return {raw, week, phase:phaseForWeek(week), beforeStart:raw<1, plan:PLAN[week-1]};
+}
+function daysUntilReady(d){
+  return Math.max(0, Math.ceil((READY_BY - parseLocalDate(d))/86400000));
+}
+function inclineMinForWeek(w){
+  if(w>=22) return w===22?45:(w===23?40:30);
+  return Math.min(60, 35 + Math.floor((w-1)*1.3));
+}
+function sessionsForWeek(w){
+  const p = PLAN[w-1] || PLAN[0];
+  const inc = inclineMinForWeek(w);
+  return [
+    {key:'mon', day:'MON', type:'Strength A', title:'Strength A — Hiking Legs (50-55 min)',
+     desc:'Step-ups, split squats, RDLs, lunges, calves. Loads moderate, RPE 6-7, slow descents.'},
+    {key:'tue', day:'TUE', type:'Incline Walk', title:'Incline Walk ('+inc+' min)',
+     desc:'Treadmill: 5 min warm-up at 3%, then '+(inc-10)+' min at 10-12% incline, 2.7-3.0 mph (Week 1: 10%, 2.7-3.0 mph), 5 min cool-down. No pack, try not to hold the rails.'},
+    {key:'wed', day:'WED', type:'Strength B', title:'Strength B — Upper + Core (45-50 min)',
+     desc:'Rows, push-ups, lat pulldown, shoulder press, core circuit. Posture and pack stability.'},
+    {key:'fri', day:'FRI', type:'Stairs', title:'Stairs — '+fmt(p.stairsFt)+' ft target',
+     desc:'Climb '+fmt(p.stairsFt)+' ft total (about '+Math.round(p.stairsFt/10)+' floors). Week 1 pattern: 6 rounds of 2 min steady climbing / 2 min easy. Whole foot on the step, stand tall, controlled descents.'},
+    {key:'sat', day:'SAT', type:'Hike', title:'Long Hike — '+fmt(p.longMi)+' miles',
+     desc:'Pack '+p.packLb+' lb. Comfortable talk-the-whole-way pace, eat a small snack every hour, stop and fix any hot spot on your feet right away.'}
+  ];
+}
+const STRENGTH_DETAILS =
+  '<b>Mon — Strength A (Week 1 spec):</b> Warm-up 5 min treadmill 8% at 2.8 mph + 10 squats, 10 lunges, 10 calf raises. ' +
+  'Box step-ups 3x8 each leg, 12-16 in box, bodyweight first week, step down slow (3 seconds) — that slow descent is LeConte descent training. ' +
+  'Bulgarian split squats 3x6 each leg, bodyweight. Dumbbell Romanian deadlift 3x10, RPE 6-7 (start 15-20 lb dumbbells if unsure, log the weight). ' +
+  'Walking lunges 2x16 steps. Calf raises 2x12 straight knee + 2x12 bent knee. Tibialis raises 2x12. Finish 8 min easy stair climber if time.' +
+  '<br><b>Wed — Strength B (Week 1 spec):</b> One-arm dumbbell row 3x10 each side. Push-ups 3x8-12 (incline on a bench if floor form breaks). ' +
+  'Lat pulldown 3x10. Dumbbell shoulder press 2x10 light. Core x3 rounds: dead bug 8 each side, plank 30 sec, Pallof press 10 each side.';
+
+/* ---------- verses (from the October Challenge app) ---------- */
 const VERSES = [
   {t:"Do you not know that your body is a temple of the Holy Spirit within you? So glorify God in your body.", r:"1 Corinthians 6:19-20"},
   {t:"Run in such a way as to get the prize.", r:"1 Corinthians 9:24"},
@@ -450,237 +441,155 @@ function renderVerse(){
   $('#verseRef').textContent = v.r;
   const msLeft = VERSE_MS - (Date.now() % VERSE_MS);
   const h = Math.floor(msLeft/3600000), m = Math.floor(msLeft%3600000/60000);
-  $('#verseTimer').textContent = `New verse in ${h}h ${m}m`;
+  $('#verseTimer').textContent = 'New verse in ' + h + 'h ' + m + 'm';
 }
-const COLORS = ['#2f9e44','#2b8fc4','#9c5fd3','#e0832f','#d6336c','#0ca678'];
-const LS_KEY = 'jct50-v1';
 
+/* ---------- helpers ---------- */
+const LS_KEY = 'leconte-v1';
 function uid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2,8); }
 function pad(n){ return String(n).padStart(2,'0'); }
 function dateStr(d){ return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()); }
-function inChallenge(ds){ return ds >= '2026-10-01' && ds <= '2026-10-31'; }
 function todayStr(){ return dateStr(new Date()); }
-function fmt(n){ return (Math.round(n*10)/10).toString(); }
+function fmt(n){ n = Number(n)||0; return (Math.round(n*10)/10).toLocaleString('en-US'); }
+function fmtInt(n){ return Math.round(Number(n)||0).toLocaleString('en-US'); }
 function prettyDate(ds){
-  const [y,m,d] = ds.split('-').map(Number);
-  return new Date(y, m-1, d).toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
+  const d = parseLocalDate(ds);
+  return d.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
 }
 function esc(s){ return String(s||'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+const ENTRY_ICONS = {'Hike':'🥾','Incline Walk':'📈','Stairs':'🪜','Strength A':'🏋️','Strength B':'💪','Other':'✅'};
 
 /* ---------- store ---------- */
-const store = {
-  data:null,
-  load(){
-    try{ this.data = JSON.parse(localStorage.getItem(LS_KEY)||'null'); }catch(e){ this.data=null; }
-    if(!this.data || !Array.isArray(this.data.profiles)){
-      this.data = { profiles:[{id:uid(), name:'Pat', color:COLORS[0], challenges:[50]}],
-        entries:[], activeProfileId:null, selfProfileId:null, supabase:{url:SB_DEFAULTS.url, key:SB_DEFAULTS.key}, shareBoard:true, mine:[], milestones:{}, selected:{}, display:{bubbles:true, verse:true, coach:true}, onboarded:false, organizer:false, v:7 };
-      this.data.mine.push(this.data.profiles[0].id);
-    }
-    if(!this.data.v){
-      this.data.v = 2;
-      for(const p of this.data.profiles){
-        if(!Array.isArray(p.challenges) || !p.challenges.length) p.challenges=[50];
-        p.challenges = p.challenges.filter(g=>CHALLENGES[g]);
-        if(!p.challenges.length) p.challenges=[50];
-      }
-      if(this.data.profiles.length===1)
-        this.data.profiles.push({id:uid(), name:'Husband', color:COLORS[1], challenges:[20,50,100]});
-    }
-    if(this.data.v < 3){
-      // Solo tracker: drop any auto-added "Husband" profile and its entries
-      const gone = new Set(this.data.profiles.filter(p=>p.name && p.name.toLowerCase()==='husband').map(p=>p.id));
-      if(gone.size){
-        this.data.profiles = this.data.profiles.filter(p=>!gone.has(p.id));
-        this.data.entries = (this.data.entries||[]).filter(e=>!gone.has(e.profileId));
-        for(const k of Object.keys(this.data.selected||{})) if(gone.has(k)) delete this.data.selected[k];
-      }
-      this.data.v = 3;
-      this.save();
-    }
-    if(this.data.v < 4){
-      // v4: customizable display toggles (bubbles off by default)
-      const dflt={bubbles:true, verse:true, coach:true};
-      this.data.display = Object.assign({}, dflt, this.data.display||{});
-      this.data.v = 4;
-      this.save();
-    }
-    if(this.data.v < 5){
-      // v5: first-launch welcome setup — existing users skip it
-      this.data.onboarded = true;
-      this.data.v = 5;
-      this.save();
-    }
-    if(this.data.v < 6){
-      // v6: progress is measured against total commitment (sum of enrolled
-      // challenges), so carry per-goal milestone celebrations over to the
-      // total-based keys to avoid re-toasting them.
-      for(const p of this.data.profiles){
-        for(const g of enrolled(p)) for(const k of ['half','full']){
-          if(this.data.milestones[p.id+':'+g+':'+k]) this.data.milestones[p.id+':total:'+k]=true;
-        }
-      }
-      this.data.v = 6;
-      this.save();
-    }
-    if(this.data.v < 7){
-      // v7: mile bubbles are on by default again (Pat's call) — existing
-      // users get them back; the Customize toggle still overrides.
-      this.data.display = Object.assign({}, this.data.display||{});
-      this.data.display.bubbles = true;
-      this.data.v = 7;
-      this.save();
-    }
-    if(this.data.v < 8){
-      // v8: explicit leaderboard sharing choice — existing users stay shared.
-      if(this.data.shareBoard===undefined) this.data.shareBoard = true;
-      this.data.v = 8;
-      this.save();
-    }
-    if(this.data.v < 9){
-      // v9: track ids created on this device but not yet confirmed in the
-      // cloud — only those are ever pushed. Stops deleted rows resurrecting.
-      if(!Array.isArray(this.data.mine)) this.data.mine = [];
-      this.data.v = 9;
-      this.save();
-    }
-    if(this.data.v < 10){
-      // v10: device ownership — the profile this device manages. Turning the
-      // shared board off deletes only this profile from the cloud, never
-      // anyone else's.
-      if(!this.data.selfProfileId) this.data.selfProfileId = this.data.activeProfileId;
-      this.data.v = 10;
-      this.save();
-    }
-    if(this.data.v < 11){
-      // v11: organizer tools are a per-device switch, not name-based — other
-      // participants no longer get admin buttons just for sharing a name.
-      if(this.data.organizer===undefined) this.data.organizer=false;
-      this.data.v = 11;
-      this.save();
-    }
-    if(!this.data.milestones) this.data.milestones = {};
-    if(!this.data.supabase) this.data.supabase = {url:'',key:''};
-    if(!this.data.selected) this.data.selected = {};
-    if(!this.data.activeProfileId || !this.data.profiles.find(p=>p.id===this.data.activeProfileId))
-      this.data.activeProfileId = this.data.profiles.length ? this.data.profiles[0].id : null;
-    pinActiveToSelf();
-  },
-  save(){ try{ localStorage.setItem(LS_KEY, JSON.stringify(this.data)); }catch(e){} }
-};
-const activeProfile = () => store.data.profiles.find(p=>p.id===store.data.activeProfileId);
-// Board permissions: you can only change your own tracker — unless this
-// device has Organizer tools switched on in Settings.
-function ownProfile(){ return store.data.profiles.find(p=>p.id===store.data.selfProfileId) || activeProfile(); }
-function isBoardAdmin(){ return !!store.data.organizer; }
-function canEditProfile(pid){ return isBoardAdmin() || (store.data.selfProfileId && pid===store.data.selfProfileId); }
-// One tracker per device: the active tracker is always your own, so miles
-// can only ever be logged for yourself. Everyone else is leaderboard-only.
-function pinActiveToSelf(){
-  const self=store.data.selfProfileId;
-  if(self && store.data.profiles.find(p=>p.id===self) && store.data.activeProfileId!==self){
-    store.data.activeProfileId=self; store.save();
-  }
-}
-const entriesFor = pid => store.data.entries.filter(e=>e.profileId===pid && inChallenge(e.date));
-// Corrupt miles values (hand-edited storage) count as 0 rather than NaN-ing the card.
-const totalFor = pid => entriesFor(pid).reduce((s,e)=>s+(Number(e.miles)||0),0);
-// Miles are counted once and allocated across enrolled challenges in ascending
-// order: the first 20 mi fill the 20-mile challenge, the next 50 fill the
-// 50-mile, then the 100-mile. So 20+50+100 needs 170 real miles.
-function allocatedFor(pid, goal){
-  const p = store.data.profiles.find(x=>x.id===pid); if(!p) return 0;
-  let remaining = totalFor(pid);
-  for(const g of enrolled(p)){
-    const a = Math.min(Math.max(0, remaining), g);
-    if(g===goal) return a;
-    remaining -= a;
-  }
-  return 0;
-}
-// Total commitment = sum of all enrolled challenges (e.g. 20+50+100 = 170)
-const commitment = p => enrolled(p).reduce((a,g)=>a+g,0);
-
-/* ---------- supabase ---------- */
-// Baked-in shared-board connection (Supabase anon key is public by design;
-// table policies decide what it can do). Fresh devices auto-connect.
 const SB_DEFAULTS = {
   url:'https://nssdfhkzjoanbzgpilvz.supabase.co',
   key:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5zc2RmaGt6am9hbmJ6Z3BpbHZ6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMzNDgyMDgsImV4cCI6MjA5ODkyNDIwOH0.noQB7SiltD400wftYPv309n5AX8sf5-Kp1ycNJS-0B8'
 };
-let sb = null;
+function defaultData(){
+  return { v:1, onboarded:false,
+    profile:{id:uid(), name:'', trail:'alum'},
+    entries:[], done:{}, celebrated:{},
+    display:{bubbles:true, verse:true, coach:true},
+    supabase:{url:SB_DEFAULTS.url, key:SB_DEFAULTS.key} };
+}
+const store = {
+  data:null,
+  load(){
+    try{ this.data = JSON.parse(localStorage.getItem(LS_KEY)||'null'); }catch(e){ this.data=null; }
+    if(!this.data || !Array.isArray(this.data.entries) || !this.data.profile){
+      this.data = defaultData();
+    }
+    if(!this.data.done) this.data.done = {};
+    if(!this.data.celebrated) this.data.celebrated = {};
+    if(!this.data.display) this.data.display = {bubbles:true, verse:true, coach:true};
+    if(!this.data.supabase) this.data.supabase = {url:SB_DEFAULTS.url, key:SB_DEFAULTS.key};
+    if(!TRAILS[this.data.profile.trail]) this.data.profile.trail = 'alum';
+  },
+  save(){ try{ localStorage.setItem(LS_KEY, JSON.stringify(this.data)); }catch(e){} }
+};
+
+/* ---------- pure training logic ---------- */
+function num(v){ const n = parseFloat(v); return isFinite(n) && n>0 ? n : 0; }
+function validateEntry(raw){
+  raw = raw || {};
+  const date = String(raw.date||'').trim();
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(date)) return {ok:false, error:'Pick a date for this session'};
+  const types = Object.keys(ENTRY_ICONS);
+  const type = types.includes(raw.type) ? raw.type : 'Other';
+  const miles = Math.max(0, parseFloat(raw.miles)||0);
+  const ft = Math.max(0, parseFloat(raw.ft)||0);
+  const minutes = Math.max(0, parseFloat(raw.minutes)||0);
+  const pack = Math.max(0, parseFloat(raw.pack)||0);
+  let pain = parseInt(raw.pain,10); if(!isFinite(pain)) pain = 0;
+  pain = Math.max(0, Math.min(10, pain));
+  if(!(miles>0 || ft>0 || minutes>0))
+    return {ok:false, error:'Add miles, vertical ft, or minutes — a session needs at least one'};
+  return {ok:true, entry:{date, type, miles, ft, minutes, pack, pain, note:String(raw.note||'').slice(0,120)}};
+}
+function computeTotals(entries){
+  entries = entries || [];
+  let miles=0, ft=0;
+  for(const e of entries){ miles += Number(e.miles)||0; ft += Number(e.ft)||0; }
+  return {miles, ft, sessions:entries.length};
+}
+function computeProgress(entries){
+  const t = computeTotals(entries);
+  const milesPct = Math.min(100, t.miles/TARGETS.miles*100);
+  const ftPct = Math.min(100, t.ft/TARGETS.ft*100);
+  const sessPct = Math.min(100, t.sessions/TARGETS.sessions*100);
+  const overall = Math.min(100, Math.round((milesPct+ftPct+sessPct)/3));
+  return {miles:t.miles, ft:t.ft, sessions:t.sessions,
+    milesPct:Math.round(milesPct), ftPct:Math.round(ftPct), sessPct:Math.round(sessPct), overall};
+}
+function plannedLongThroughLastWeek(week){
+  let s=0; for(let i=0;i<week-1 && i<PLAN.length;i++) s += PLAN[i].longMi; return s;
+}
+function coachInfo(entries, today){
+  entries = entries || [];
+  const info = weekInfo(today || new Date());
+  const week = info.week, plan = PLAN[week-1];
+  const planned = plannedLongThroughLastWeek(week);
+  const actual = entries.filter(e=>e.type==='Hike' || e.type==='Incline Walk')
+    .reduce((s,e)=>s+(Number(e.miles)||0),0);
+  const diff = actual - planned;
+  let verdict, cls;
+  if(!entries.length){ verdict='welcome'; cls='coach-mid'; }
+  else if(diff >= 1){ verdict='ahead'; cls='coach-ok'; }
+  else if(diff <= -1){ verdict='behind'; cls='coach-warn'; }
+  else { verdict='on pace'; cls='coach-mid'; }
+  const cutoff = dateStr(new Date(parseLocalDate(today || new Date()).getTime() - 6*86400000));
+  const painWarn = entries.some(e=>e.date >= cutoff && (Number(e.pain)||0) >= 6);
+  return {week, phase:info.phase, plan, planned, actual, diff, verdict, cls, painWarn,
+    catchUp: verdict==='behind' && diff < -3 ? Math.min(actual>=0 ? -diff : 0, plan.longMi+2) : 0};
+}
+
+/* ---------- supabase: best-effort shared board ---------- */
+let sb = null, cloudState = 'off', boardRows = [];
 function initSupabase(){
   sb = null;
-  if(store.data.shareBoard===false){ updateCloudUI(); return; }
   const cfg = store.data.supabase;
   if(cfg && cfg.url && cfg.key && window.supabase){
     try{ sb = window.supabase.createClient(cfg.url, cfg.key); }catch(e){ sb=null; }
   }
-  updateCloudUI();
 }
-async function pullFromCloud(){
-  if(!sb) return;
-  // Safe join: push anything the cloud doesn't have yet (a newcomer adds
-  // themselves) instead of replacing local data, then pull cloud as truth.
-  const {data:cp, error:e0} = await sb.from('challenge_profiles').select('id');
-  if(e0) throw e0;
-  const mine=new Set(store.data.mine||[]);
-  const haveP = new Set((cp||[]).map(r=>r.id));
-  for(const p of store.data.profiles){
-    if(!haveP.has(p.id) && mine.has(p.id)){
-      const {error}=await sb.from('challenge_profiles').insert({id:p.id, name:p.name, color:p.color, challenges:enrolled(p)});
-      if(error && error.code!=='23505') throw error; // ignore race duplicates
-      if(!error) mine.delete(p.id);
-    }
-  }
-  const {data:ce, error:e00} = await sb.from('challenge_entries').select('id');
-  if(e00) throw e00;
-  const haveE = new Set((ce||[]).map(r=>r.id));
-  // Markers for ids the cloud already has are stale — drop them so a later
-  // administrative delete can never resurrect them.
-  for(const id of mine){ if(haveP.has(id)||haveE.has(id)) mine.delete(id); }
-  for(const e of store.data.entries){
-    if(!haveE.has(e.id) && mine.has(e.id)){
-      const {error}=await sb.from('challenge_entries').insert({id:e.id, profile_id:e.profileId, entry_date:e.date, activity:e.activity, miles:e.miles, note:e.note||null});
-      if(error && error.code!=='23505') throw error; // ignore race duplicates
-      if(!error) mine.delete(e.id);
-    }
-  }
-  store.data.mine=[...mine];
-  const {data:profs, error:e1} = await sb.from('challenge_profiles').select('*');
-  if(e1) throw e1;
-  const {data:ents, error:e2} = await sb.from('challenge_entries').select('*');
-  if(e2) throw e2;
-  const ownBefore = store.data.selfProfileId ? store.data.profiles.find(p=>p.id===store.data.selfProfileId) : null;
-  store.data.profiles = profs.map(p=>{
-    const ch=Array.isArray(p.challenges)?p.challenges.filter(g=>CHALLENGES[g]):[];
-    return {id:p.id, name:p.name, color:p.color||COLORS[0], challenges:ch.length?ch:[50]};
-  });
-  store.data.entries = ents.map(e=>({id:e.id, profileId:e.profile_id, date:e.entry_date,
-    activity:e.activity, miles:Number(e.miles), note:e.note||''}));
-  if(!store.data.profiles.find(p=>p.id===store.data.activeProfileId))
-    store.data.activeProfileId = store.data.profiles.length ? store.data.profiles[0].id : null;
-  // If the tracker this device owned vanished from the shared board (e.g. a
-  // duplicate was cleaned up), re-adopt a surviving tracker with the same
-  // name. Never silently adopt someone else's tracker — if none matches,
-  // run setup again so the owner picks their tracker.
-  if(store.data.selfProfileId && !store.data.profiles.find(p=>p.id===store.data.selfProfileId)){
-    const nm=((ownBefore&&ownBefore.name)||'').trim().toLowerCase();
-    const same=nm && store.data.profiles.find(p=>(p.name||'').trim().toLowerCase()===nm);
-    if(same){ store.data.selfProfileId=same.id; }
-    else { store.data.selfProfileId=null; store.data.onboarded=false; }
-  }
-  pinActiveToSelf();
-  store.save();
-  if(!store.data.onboarded) openSetup();
+function boardStatusText(){
+  return cloudState==='on' ? '● Shared board connected' : 'Local only - shared board not set up yet';
 }
-// Invite link: #c=<base64url JSON {u:url,k:anonKey}> — joiners auto-connect.
+async function syncBoard(){
+  if(!sb){ cloudState='off'; renderBoard(); return; }
+  try{
+    const {data, error} = await sb.from('leconte_profiles').select('*');
+    if(error) throw error;
+    boardRows = Array.isArray(data) ? data : [];
+    cloudState = 'on';
+    const p = store.data.profile;
+    if(p && p.name){
+      try{ await sb.from('leconte_profiles').upsert({id:p.id, name:p.name, trail:p.trail}); }catch(e){}
+      for(const e of store.data.entries){
+        try{ await sb.from('leconte_sessions').upsert({id:e.id, profile_id:p.id, entry_date:e.date, type:e.type,
+          miles:e.miles, vertical_ft:e.ft, minutes:e.minutes, pack_lb:e.pack, pain:e.pain, note:e.note||null}); }catch(err){}
+      }
+      const again = await sb.from('leconte_profiles').select('*');
+      if(!again.error && Array.isArray(again.data)) boardRows = again.data;
+    }
+  }catch(e){ cloudState='off'; boardRows=[]; }
+  renderBoard();
+}
+async function cloudPushEntry(e){
+  if(!sb || cloudState!=='on') return;
+  const p = store.data.profile;
+  try{ await sb.from('leconte_profiles').upsert({id:p.id, name:p.name||'Pat', trail:p.trail}); }catch(err){}
+  try{ await sb.from('leconte_sessions').insert({id:e.id, profile_id:p.id, entry_date:e.date, type:e.type,
+    miles:e.miles, vertical_ft:e.ft, minutes:e.minutes, pack_lb:e.pack, pain:e.pain, note:e.note||null}); }catch(err){}
+}
+async function cloudDeleteEntry(id){
+  if(!sb || cloudState!=='on') return;
+  try{ await sb.from('leconte_sessions').delete().eq('id', id); }catch(e){}
+}
 function invitePayload(){
   const cfg=store.data.supabase;
   return btoa(unescape(encodeURIComponent(JSON.stringify({u:cfg.url,k:cfg.key}))))
     .replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
 }
-function inviteLink(){ return location.origin+location.pathname+'#c='+invitePayload(); }
 function consumeInviteHash(){
   const m=(location.hash||'').match(/^#c=([A-Za-z0-9\-_]+)$/);
   if(!m) return false;
@@ -694,335 +603,19 @@ function consumeInviteHash(){
   }catch(e){}
   return false;
 }
-async function copyInviteLink(){
-  const link=inviteLink();
-  try{ await navigator.clipboard.writeText(link); toast('Invite link copied — share it!'); }
-  catch(e){
-    prompt('Copy your invite link:', link);
-  }
-}
-async function deleteMyCloudData(){
-  if(!sb) return;
-  // Scoped to the profile this device owns — never the whole shared board.
-  const selfId = store.data.selfProfileId || store.data.activeProfileId;
-  const gone=new Set();
-  try{ await sb.from('challenge_entries').delete().eq('profile_id',selfId); }catch(e){}
-  try{ await sb.from('challenge_profiles').delete().eq('id',selfId); gone.add(selfId); }catch(e){}
-  for(const e of store.data.entries){ if(e.profileId===selfId) gone.add(e.id); }
-  store.data.mine=(store.data.mine||[]).filter(id=>!gone.has(id));
-  store.save();
-}
-async function cloudOp(fn, failMsg){
-  if(!sb) return;
-  try{ await fn(); }
-  catch(e){ toast(failMsg + ' — kept on this device only'); }
-}
-// Re-joining the board: explicitly re-assert your own tracker and any of
-// your entries missing from the cloud, then pull. (A plain pull can't do
-// this — your rows were already confirmed before you left, so there are no
-// pending markers to push.)
-async function rejoinBoard(){
-  if(!sb) return;
-  const self=store.data.profiles.find(p=>p.id===store.data.selfProfileId);
-  if(self){
-    try{ await sb.from('challenge_profiles').upsert({id:self.id, name:self.name, color:self.color, challenges:enrolled(self)}); }catch(e){}
-    try{
-      const {data:ce}=await sb.from('challenge_entries').select('id');
-      const have=new Set((ce||[]).map(r=>r.id));
-      for(const e of store.data.entries){
-        if(e.profileId===self.id && !have.has(e.id)){
-          try{ await sb.from('challenge_entries').insert({id:e.id, profile_id:e.profileId, entry_date:e.date, activity:e.activity, miles:e.miles, note:e.note||null}); }
-          catch(err){ if(err&&err.code!=='23505') throw err; }
-        }
-      }
-    }catch(e){}
-  }
-  await pullFromCloud();
-}
 
-/* ---------- instagram story share ---------- */
-function rr(x,px,py,w,h,r){
-  x.beginPath(); x.moveTo(px+r,py);
-  x.arcTo(px+w,py,px+w,py+h,r); x.arcTo(px+w,py+h,px,py+h,r);
-  x.arcTo(px,py+h,px,py,r); x.arcTo(px,py,px+w,py,r); x.closePath();
-}
-function wrapText(x,text,cx,y,maxW,lh){
-  const words=text.split(' '); let line='',yy=y;
-  for(const w of words){
-    const t=line?line+' '+w:w;
-    if(x.measureText(t).width>maxW && line){ x.fillText(line,cx,yy); line=w; yy+=lh; }
-    else line=t;
-  }
-  x.fillText(line,cx,yy); return yy+lh;
-}
-/* ---------- gold-foil story card art helpers ---------- */
-function ssSpaced(x,txt,cx,y,ls){
-  const chars=[...txt];
-  const widths=chars.map(ch=>x.measureText(ch).width);
-  const total=widths.reduce((a,b)=>a+b,0)+ls*(chars.length-1);
-  let pen=cx-total/2;
-  const prev=x.textAlign; x.textAlign='left';
-  chars.forEach((ch,i)=>{ x.fillText(ch,pen,y); pen+=widths[i]+ls; });
-  x.textAlign=prev;
-}
-function ssBubble(x,cx,cy,r,num,fill,F){
-  x.save();
-  x.beginPath(); x.arc(cx,cy,r,0,7);
-  if(fill>=1){
-    const g=x.createRadialGradient(cx-r*0.35,cy-r*0.4,r*0.1,cx,cy,r*1.05);
-    g.addColorStop(0,'#ffe082'); g.addColorStop(0.55,'#eab308'); g.addColorStop(1,'#c78d0e');
-    x.fillStyle=g;
-    x.shadowColor='rgba(234,179,8,.5)'; x.shadowBlur=16;
-    x.fill(); x.shadowBlur=0;
-  } else if(fill>0){
-    x.save(); x.clip();
-    const g=x.createLinearGradient(0,cy-r,0,cy+r);
-    g.addColorStop(0,'#ffe082'); g.addColorStop(1,'#cf9a12');
-    x.fillStyle=g;
-    const h=2*r*fill;
-    x.fillRect(cx-r,cy+r-h,2*r,h);
-    x.restore();
-  }
-  x.lineWidth=Math.max(2.5,r*0.13); x.strokeStyle='#c9a227'; x.stroke();
-  x.fillStyle=fill>0.45?'#ffffff':'#c9a227';
-  x.font='800 '+Math.round(r*0.62)+'px '+F;
-  x.textAlign='center'; x.textBaseline='middle';
-  x.fillText(String(num),cx,cy+2);
-  x.restore();
-}
-function ssGrain(x,n){
-  x.save();
-  for(let i=0;i<n;i++){
-    x.fillStyle='rgba(255,255,255,'+(Math.random()*0.05).toFixed(3)+')';
-    x.fillRect(Math.random()*1080,Math.random()*1920,1.6,1.6);
-  }
-  x.restore();
-}
-function ssVignette(x,a){
-  const g=x.createRadialGradient(540,960,1920*0.32,540,960,1920*0.72);
-  g.addColorStop(0,'rgba(0,0,0,0)');
-  g.addColorStop(1,'rgba(0,0,0,'+a+')');
-  x.fillStyle=g; x.fillRect(0,0,1080,1920);
-}
-// Build a 1080x1920 story image of current progress and hand it to the phone's share sheet
-function shareStory(){
-  const p=activeProfile(); if(!p){ toast('Add a tracker in Settings first'); return; }
-  const g=activeGoal();
-  const t=allocatedFor(p.id,g), pct=Math.min(100,Math.round(t/g*100));
-  // Gold foil champion theme: deep evergreen, gold-foil title, cream bubble card
-  const W=1080,H=1920, c=document.createElement('canvas'); c.width=W; c.height=H;
-  const x=c.getContext('2d');
-  if(!x || !c.toBlob){ toast('Sharing is not supported in this browser'); return; }
-  const F='system-ui,-apple-system,sans-serif';
-  const st=streakFor(p.id);
-  x.textAlign='center'; x.textBaseline='alphabetic';
-  // deep evergreen background + diagonal sheen
-  const bg=x.createLinearGradient(0,0,W,H);
-  bg.addColorStop(0,'#0e2f25'); bg.addColorStop(0.5,'#134233'); bg.addColorStop(1,'#081b15');
-  x.fillStyle=bg; x.fillRect(0,0,W,H);
-  const sheen=x.createLinearGradient(0,0,W,H);
-  sheen.addColorStop(0.42,'rgba(255,255,255,0)');
-  sheen.addColorStop(0.5,'rgba(255,255,255,.05)');
-  sheen.addColorStop(0.58,'rgba(255,255,255,0)');
-  x.fillStyle=sheen; x.fillRect(0,0,W,H);
-  // certificate frame
-  x.lineWidth=3; x.strokeStyle='#c9a227';
-  rr(x,36,36,1008,1848,34); x.stroke();
-  x.lineWidth=1; x.strokeStyle='rgba(201,162,39,.55)';
-  rr(x,54,54,972,1812,26); x.stroke();
-  [[90,90],[990,90],[90,1830],[990,1830]].forEach(([cx,cy])=>{
-    x.save(); x.translate(cx,cy); x.rotate(Math.PI/4);
-    x.fillStyle='#c9a227'; x.fillRect(-9,-9,18,18); x.restore();
-  });
-  // eyebrow
-  x.fillStyle='#e9d8a6'; x.font='600 37px '+F;
-  ssSpaced(x,'✦  OCTOBER CHALLENGE  ✦',W/2,208,10);
-  // gold-foil hero with auto-fit so it never overflows
-  let hs=198;
-  const hero=g+'-MILES';
-  const hfont=()=>'italic 900 '+hs+'px '+F;
-  x.font=hfont();
-  while(x.measureText(hero).width>920 && hs>80){ hs-=6; x.font=hfont(); }
-  x.save();
-  x.shadowColor='rgba(0,0,0,.55)'; x.shadowBlur=24; x.shadowOffsetY=8;
-  const fg=x.createLinearGradient(0,240,0,440);
-  fg.addColorStop(0,'#f9e79a'); fg.addColorStop(0.48,'#c9992b');
-  fg.addColorStop(0.55,'#a87e1c'); fg.addColorStop(1,'#f3d47a');
-  x.fillStyle=fg;
-  x.fillText(hero,W/2,408);
-  x.restore();
-  // divider
-  x.strokeStyle='rgba(201,162,39,.8)'; x.lineWidth=2;
-  x.beginPath(); x.moveTo(300,462); x.lineTo(500,462); x.moveTo(580,462); x.lineTo(780,462); x.stroke();
-  x.save(); x.translate(W/2,462); x.rotate(Math.PI/4);
-  x.fillStyle='#c9a227'; x.fillRect(-11,-11,22,22); x.restore();
-  x.fillStyle='rgba(233,216,166,.85)'; x.font='600 31px '+F;
-  ssSpaced(x,g+' MILES · ONE MONTH · FINISH STRONG',W/2,522,5);
-  // stat trio
-  const stats=[[fmt(t),'MILES'],[pct+'%','COMPLETE'],[st>0?('🔥'+st):'—','STREAK']];
-  stats.forEach(([val,lab],i)=>{
-    const cx=300+i*240;
-    x.fillStyle='#f5e9c8'; x.font='800 62px '+F;
-    x.fillText(val,cx,648);
-    x.fillStyle='#c9a227'; x.font='600 26px '+F;
-    ssSpaced(x,lab,cx,692,6);
-  });
-  x.strokeStyle='rgba(201,162,39,.35)'; x.lineWidth=1.5;
-  [420,660].forEach(px=>{ x.beginPath(); x.moveTo(px,590); x.lineTo(px,700); x.stroke(); });
-  x.fillStyle='rgba(233,216,166,.6)'; x.font='600 27px '+F;
-  ssSpaced(x,'RUN · WALK · HIKE · CYCLE · SWIM · ROW',W/2,748,4);
-  // cream bubble panel, sized to the goal
-  const cols=7, rows=Math.ceil(g/cols);
-  const availTop=796, availBot=1780;
-  const cellH=Math.min(122,(availBot-availTop-122)/rows);
-  const R=Math.min(44,cellH*0.36);
-  const cellW=888/cols;
-  const panelH=66+rows*cellH+56;
-  const panelTop=availTop+Math.max(0,(availBot-availTop-panelH)/2);
-  x.save();
-  rr(x,96,panelTop,888,panelH,44);
-  x.fillStyle='#faf5e8';
-  x.shadowColor='rgba(0,0,0,.5)'; x.shadowBlur=44; x.shadowOffsetY=16;
-  x.fill(); x.restore();
-  x.fillStyle='#8a6d1c'; x.font='800 30px '+F;
-  ssSpaced(x,p.name.toUpperCase()+' — ONE BUBBLE = ONE MILE',W/2,panelTop+44,6);
-  const gridTop=panelTop+96;
-  for(let i=1;i<=g;i++){
-    const r0=Math.floor((i-1)/cols), col=(i-1)%cols;
-    const cx=96+cellW*(col+0.5), cy=gridTop+r0*cellH;
-    ssBubble(x,cx,cy,R,i,Math.max(0,Math.min(1,t-(i-1))),F);
-  }
-  x.fillStyle='#c9a227'; x.font='600 30px '+F;
-  ssSpaced(x,st>0?'EVERY MILE COUNTS · KEEP GOING':'EVERY MILE COUNTS!',W/2,1832,6);
-  ssGrain(x,2000); ssVignette(x,0.22);
-  shareCanvas(c,'October Challenge','Leaderboard','october-leaderboard.png');
-}
-/* ---------- shared share flow + leaderboard story image ---------- */
-function shareCanvas(c,title,text,filename){
-  c.toBlob(blob=>{
-    if(!blob){ toast('Could not create image'); return; }
-    const file=new File([blob],filename,{type:'image/png'});
-    if(navigator.canShare && navigator.canShare({files:[file]})){
-      navigator.share({files:[file],title:title,text:text}).catch(()=>{});
-    } else {
-      const a=document.createElement('a');
-      a.href=URL.createObjectURL(blob); a.download=filename;
-      document.body.appendChild(a); a.click(); a.remove();
-      setTimeout(()=>URL.revokeObjectURL(a.href),4000);
-      toast('Image saved — post it to your story');
-    }
-  },'image/png');
-}
-function lbPeople(){
-  // Not a competition: alphabetical, everyone with their own cards.
-  return store.data.profiles.slice()
-    .sort((a,b)=>a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
-}
-function shareLeaderboard(){
-  const people=lbPeople();
-  const W=1080,H=1920, c=document.createElement('canvas'); c.width=W; c.height=H;
-  const x=c.getContext('2d');
-  if(!x || !c.toBlob){ toast('Sharing is not supported in this browser'); return; }
-  const F='system-ui,-apple-system,sans-serif';
-  x.textAlign='center'; x.textBaseline='alphabetic';
-  // deep evergreen background + diagonal sheen
-  const bg=x.createLinearGradient(0,0,W,H);
-  bg.addColorStop(0,'#0e2f25'); bg.addColorStop(0.5,'#134233'); bg.addColorStop(1,'#081b15');
-  x.fillStyle=bg; x.fillRect(0,0,W,H);
-  const sheen=x.createLinearGradient(0,0,W,H);
-  sheen.addColorStop(0.42,'rgba(255,255,255,0)');
-  sheen.addColorStop(0.5,'rgba(255,255,255,.05)');
-  sheen.addColorStop(0.58,'rgba(255,255,255,0)');
-  x.fillStyle=sheen; x.fillRect(0,0,W,H);
-  // certificate frame
-  x.lineWidth=3; x.strokeStyle='#c9a227';
-  rr(x,36,36,1008,1848,34); x.stroke();
-  x.lineWidth=1; x.strokeStyle='rgba(201,162,39,.55)';
-  rr(x,54,54,972,1812,26); x.stroke();
-  [[90,90],[990,90],[90,1830],[990,1830]].forEach(([cx,cy])=>{
-    x.save(); x.translate(cx,cy); x.rotate(Math.PI/4);
-    x.fillStyle='#c9a227'; x.fillRect(-9,-9,18,18); x.restore();
-  });
-  // eyebrow
-  x.fillStyle='#e9d8a6'; x.font='600 37px '+F;
-  ssSpaced(x,'✦  OCTOBER CHALLENGE  ✦',W/2,208,10);
-  // gold-foil hero with auto-fit
-  let hs=168;
-  const hero='LEADERBOARD';
-  const hfont=()=>'italic 900 '+hs+'px '+F;
-  x.font=hfont();
-  while(x.measureText(hero).width>920 && hs>70){ hs-=6; x.font=hfont(); }
-  x.save();
-  x.shadowColor='rgba(0,0,0,.55)'; x.shadowBlur=24; x.shadowOffsetY=8;
-  const fg=x.createLinearGradient(0,240,0,440);
-  fg.addColorStop(0,'#f9e79a'); fg.addColorStop(0.48,'#c9992b');
-  fg.addColorStop(0.55,'#a87e1c'); fg.addColorStop(1,'#f3d47a');
-  x.fillStyle=fg;
-  x.fillText(hero,W/2,408);
-  x.restore();
-  // divider
-  x.strokeStyle='rgba(201,162,39,.8)'; x.lineWidth=2;
-  x.beginPath(); x.moveTo(300,462); x.lineTo(500,462); x.moveTo(580,462); x.lineTo(780,462); x.stroke();
-  x.save(); x.translate(W/2,462); x.rotate(Math.PI/4);
-  x.fillStyle='#c9a227'; x.fillRect(-11,-11,22,22); x.restore();
-  x.fillStyle='rgba(233,216,166,.85)'; x.font='600 31px '+F;
-  ssSpaced(x,'EVERYONE \u00B7 EVERY CARD',W/2,522,5);
-  // everyone, alphabetical — each person's cards with their own bars and cups
-  const list=people.slice(0,4);
-  const blocks=list.map(p=>({p, cards:enrolled(p).map(g=>({g, a:allocatedFor(p.id,g), cc:CHALLENGES[g]}))}));
-  let y=620;
-  blocks.forEach(b=>{
-    // name with color dot
-    x.beginPath(); x.arc(150,y+26,20,0,7); x.fillStyle=b.p.color||'#2b8fc4'; x.fill();
-    let ns=54; x.font='800 '+ns+'px '+F; x.textAlign='left';
-    while(x.measureText(b.p.name).width>600 && ns>26){ ns-=4; x.font='800 '+ns+'px '+F; }
-    const nw=x.measureText(b.p.name).width;
-    x.fillStyle='#f5e9c8'; x.fillText(b.p.name,185,y+44);
-    if(b.cards.every(c=>c.a>=c.g)){ x.fillText('\uD83C\uDFC6',205+nw,y+44); }
-    y+=88;
-    const cw=Math.min(280,(840-(b.cards.length-1)*24)/b.cards.length), chh=150;
-    b.cards.forEach((c,ci)=>{
-      const done=c.a>=c.g, pc=Math.min(100,c.a/c.g*100);
-      const cx=120+ci*(cw+24), cy=y;
-      const g2=x.createLinearGradient(cx,cy,cx+cw,cy+chh);
-      g2.addColorStop(0,c.cc.solid); g2.addColorStop(1,c.cc.deep);
-      x.fillStyle=g2; rr(x,cx,cy,cw,chh,24); x.fill();
-      if(done){ x.lineWidth=5; x.strokeStyle='#f3d47a'; rr(x,cx+4,cy+4,cw-8,chh-8,20); x.stroke(); }
-      x.fillStyle='#fff'; x.font='800 36px '+F; x.textAlign='left';
-      x.fillText(c.cc.label,cx+26,cy+58);
-      x.fillStyle='rgba(255,255,255,.35)'; rr(x,cx+26,cy+76,cw-52,18,9); x.fill();
-      x.fillStyle='#fff'; rr(x,cx+26,cy+76,Math.max(18,(cw-52)*pc/100),18,9); x.fill();
-      x.font='700 30px '+F;
-      x.fillText(done?'\uD83C\uDFC6 Champion':fmt(c.a)+'/'+c.g+' mi',cx+26,cy+128);
-    });
-    y+=chh+34;
-  });
-  if(!list.length){
-    x.fillStyle='rgba(245,233,200,.8)'; x.font='600 40px '+F; x.textAlign='center';
-    x.fillText('No trackers yet \u2014',W/2,760);
-    x.fillText('be the first to log miles!',W/2,820);
-  }
-  if(people.length>4){
-    x.fillStyle='rgba(233,216,166,.7)'; x.font='600 30px '+F; x.textAlign='center';
-    x.fillText('+ '+(people.length-4)+' more',W/2,y+40);
-  }
-  x.fillStyle='#c9a227'; x.font='600 30px '+F;
-  ssSpaced(x,'EVERY MILE COUNTS · KEEP GOING',W/2,1832,6);
-  ssGrain(x,2000); ssVignette(x,0.22);
-
-  shareCanvas(c,'October Challenge','Leaderboard','october-leaderboard.png');
-}
 /* ---------- toast & confetti ---------- */
 let toastT=null;
 function toast(msg){
-  const t=$('#toast'); t.textContent=msg; t.classList.add('show');
+  const t=$('#toast'); if(!t) return;
+  t.textContent=msg; t.classList.add('show');
   clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('show'), 2600);
 }
 function confetti(){
-  const c=$('#confetti'), ctx=c.getContext('2d');
-  if(!ctx) return;
+  const c=$('#confetti'); if(!c) return;
+  const ctx=c.getContext('2d'); if(!ctx) return;
   c.width=innerWidth; c.height=innerHeight; c.style.display='block';
-  const cols=['#2b8fc4','#6fce62','#ffd43b','#ff8787','#c9a227'];
+  const cols=['#2e7d5b','#7fae56','#ffd43b','#f3d47a','#c9a227'];
   const ps=Array.from({length:90},()=>({x:Math.random()*c.width, y:-20-Math.random()*c.height*.35,
     s:4+Math.random()*6, c:cols[Math.floor(Math.random()*cols.length)],
     vy:2+Math.random()*3.2, vx:-1.2+Math.random()*2.4, r:Math.random()*Math.PI}));
@@ -1036,24 +629,276 @@ function confetti(){
   })();
 }
 
-/* ---------- render ---------- */
-let selectedActivity='walk', editingId=null;
+/* ---------- share card ---------- */
+function rr(x,px,py,w,h,r){
+  x.beginPath(); x.moveTo(px+r,py);
+  x.arcTo(px+w,py,px+w,py+h,r); x.arcTo(px+w,py+h,px,py+h,r);
+  x.arcTo(px,py+h,px,py,r); x.arcTo(px,py,px+w,py,r); x.closePath();
+}
+function ssSpaced(x,txt,cx,y,ls){
+  const chars=[...txt];
+  const widths=chars.map(ch=>x.measureText(ch).width);
+  const total=widths.reduce((a,b)=>a+b,0)+ls*(chars.length-1);
+  let pen=cx-total/2;
+  const prev=x.textAlign; x.textAlign='left';
+  chars.forEach((ch,i)=>{ x.fillText(ch,pen,y); pen+=widths[i]+ls; });
+  x.textAlign=prev;
+}
+function shareCanvas(c,title,text,filename){
+  if(!c.toBlob){ toast('Sharing is not supported in this browser'); return; }
+  c.toBlob(blob=>{
+    if(!blob){ toast('Could not create image'); return; }
+    const file=new File([blob],filename,{type:'image/png'});
+    if(navigator.canShare && navigator.canShare({files:[file]})){
+      navigator.share({files:[file],title:title,text:text}).catch(()=>{});
+    } else {
+      try{
+        const a=document.createElement('a');
+        a.href=URL.createObjectURL(blob); a.download=filename;
+        document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(()=>{ try{ URL.revokeObjectURL(a.href); }catch(e){} },4000);
+        toast('Image saved — post it to your story');
+      }catch(e){ toast('Could not save the image in this browser'); }
+    }
+  },'image/png');
+}
+function shareProgress(){
+  const p = store.data.profile;
+  const prog = computeProgress(store.data.entries);
+  const info = weekInfo(new Date());
+  const weeksToGo = Math.max(0, 24 - info.week);
+  const W=1080,H=1920, c=document.createElement('canvas'); c.width=W; c.height=H;
+  const x=c.getContext('2d');
+  if(!x || !c.toBlob){ toast('Sharing is not supported in this browser'); return; }
+  const F='system-ui,-apple-system,sans-serif';
+  x.textAlign='center'; x.textBaseline='alphabetic';
+  const bg=x.createLinearGradient(0,0,W,H);
+  bg.addColorStop(0,'#0e2f25'); bg.addColorStop(0.5,'#134233'); bg.addColorStop(1,'#081b15');
+  x.fillStyle=bg; x.fillRect(0,0,W,H);
+  const sheen=x.createLinearGradient(0,0,W,H);
+  sheen.addColorStop(0.42,'rgba(255,255,255,0)');
+  sheen.addColorStop(0.5,'rgba(255,255,255,.05)');
+  sheen.addColorStop(0.58,'rgba(255,255,255,0)');
+  x.fillStyle=sheen; x.fillRect(0,0,W,H);
+  x.lineWidth=3; x.strokeStyle='#c9a227';
+  rr(x,36,36,1008,1848,34); x.stroke();
+  x.lineWidth=1; x.strokeStyle='rgba(201,162,39,.55)';
+  rr(x,54,54,972,1812,26); x.stroke();
+  [[90,90],[990,90],[90,1830],[990,1830]].forEach(([cx,cy])=>{
+    x.save(); x.translate(cx,cy); x.rotate(Math.PI/4);
+    x.fillStyle='#c9a227'; x.fillRect(-9,-9,18,18); x.restore();
+  });
+  x.fillStyle='#e9d8a6'; x.font='600 37px '+F;
+  ssSpaced(x,'✦  MT. LECONTE · APRIL 2027  ✦',W/2,208,8);
+  let hs=150;
+  const hero='LECONTE TRAINING';
+  const hfont=()=>'italic 900 '+hs+'px '+F;
+  x.font=hfont();
+  while(x.measureText(hero).width>920 && hs>70){ hs-=6; x.font=hfont(); }
+  x.save();
+  x.shadowColor='rgba(0,0,0,.55)'; x.shadowBlur=24; x.shadowOffsetY=8;
+  const fg=x.createLinearGradient(0,240,0,440);
+  fg.addColorStop(0,'#f9e79a'); fg.addColorStop(0.48,'#c9992b');
+  fg.addColorStop(0.55,'#a87e1c'); fg.addColorStop(1,'#f3d47a');
+  x.fillStyle=fg; x.fillText(hero,W/2,408); x.restore();
+  x.strokeStyle='rgba(201,162,39,.8)'; x.lineWidth=2;
+  x.beginPath(); x.moveTo(300,462); x.lineTo(500,462); x.moveTo(580,462); x.lineTo(780,462); x.stroke();
+  x.save(); x.translate(W/2,462); x.rotate(Math.PI/4);
+  x.fillStyle='#c9a227'; x.fillRect(-11,-11,22,22); x.restore();
+  x.fillStyle='rgba(233,216,166,.9)'; x.font='700 44px '+F;
+  x.fillText((p.name||'Pat').toUpperCase(), W/2, 540);
+  x.fillStyle='#f5e9c8'; x.font='800 190px '+F;
+  x.fillText(prog.overall+'%', W/2, 780);
+  x.fillStyle='#c9a227'; x.font='600 28px '+F;
+  ssSpaced(x,'OVERALL PROGRESS', W/2, 836, 6);
+  const stats=[[fmt(prog.miles),'MILES'],[fmtInt(prog.ft),'VERTICAL FT'],[String(prog.sessions),'SESSIONS'],[String(weeksToGo),'WEEKS TO GO']];
+  stats.forEach(([val,lab],i)=>{
+    const cx=190+i*235;
+    x.fillStyle='#f5e9c8'; x.font='800 54px '+F; x.fillText(val,cx,1010);
+    x.fillStyle='#c9a227'; x.font='600 23px '+F; ssSpaced(x,lab,cx,1054,4);
+  });
+  const tr = trailOf(p.trail);
+  x.fillStyle='rgba(233,216,166,.85)'; x.font='600 32px '+F;
+  ssSpaced(x,'SUMMIT: '+tr.label.toUpperCase()+' · '+tr.desc.toUpperCase(), W/2, 1220, 4);
+  x.fillStyle='rgba(233,216,166,.65)'; x.font='600 28px '+F;
+  ssSpaced(x,'WEEK '+info.week+' OF 24 · '+info.phase.toUpperCase()+' PHASE', W/2, 1290, 4);
+  x.fillStyle='#c9a227'; x.font='600 30px '+F;
+  ssSpaced(x,'TRAIN FOR THE CLIMB, ENJOY THE CLIMB', W/2, 1832, 6);
+  shareCanvas(c,'LeConte Training','My LeConte training progress','leconte-progress.png');
+}
 
-const enrolled = p => {
-  const list = Array.isArray(p.challenges) ? p.challenges.filter(g=>CHALLENGES[g]) : [];
-  return (list.length?list:[50]).sort((a,b)=>a-b);
-};
-function activeGoal(){
-  const p=activeProfile(); if(!p) return 50;
-  const en=enrolled(p), sel=store.data.selected[p.id];
-  return en.includes(sel) ? sel : en[0];
+/* ---------- install prompt ---------- */
+let deferredPrompt=null;
+window.addEventListener('beforeinstallprompt',e=>{ e.preventDefault(); deferredPrompt=e; });
+function isStandalone(){
+  return (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone===true;
+}
+function isIOS(){ return /iphone|ipad|ipod/i.test(window.navigator.userAgent||''); }
+function installSeen(){ try{ return localStorage.getItem('leconte-install')==='done'; }catch(e){ return true; } }
+function markInstallSeen(){ try{ localStorage.setItem('leconte-install','done'); }catch(e){} }
+function openInstall(){
+  if(isStandalone()){ toast('Already installed — look for the LeConte icon on your home screen'); return; }
+  const steps=$('#installSteps'), go=$('#installGo');
+  if(deferredPrompt){
+    $('#installHint').textContent='Add LeConte Training to your home screen for one-tap access — just like a real app.';
+    steps.innerHTML=''; go.style.display=''; go.textContent='Install app';
+  } else if(isIOS()){
+    $('#installHint').textContent='On iPhone it takes 3 quick taps:';
+    steps.innerHTML='<div style="background:#f3f8f3;border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:10px 0;font-size:15px;line-height:2">'
+      +'<div>1️⃣ Tap the <b>Share</b> button in Safari <span style="font-size:18px">⎙</span><br><span style="color:var(--muted);font-size:13px">(the square with an arrow pointing up, at the bottom)</span></div>'
+      +'<div>2️⃣ Scroll down and tap <b>Add to Home Screen</b></div>'
+      +'<div>3️⃣ Tap <b>Add</b> in the top-right corner</div></div>';
+    go.style.display='none';
+  } else {
+    $('#installHint').textContent='Use your browser\u2019s \u201cInstall\u201d or \u201cAdd to Home Screen\u201d option to keep LeConte Training one tap away.';
+    steps.innerHTML=''; go.style.display='none';
+  }
+  $('#installModal').classList.add('open'); document.body.style.overflow='hidden';
+}
+function closeInstall(){ $('#installModal').classList.remove('open'); document.body.style.overflow=''; }
+function maybeInstallPrompt(){ if(!isStandalone() && !installSeen()) openInstall(); }
+
+/* ---------- render ---------- */
+function fillTrailSelect(sel, val){
+  sel.innerHTML = Object.keys(TRAILS).map(k=>'<option value="'+k+'">'+esc(TRAILS[k].label)+' — '+esc(TRAILS[k].desc)+'</option>').join('');
+  sel.value = TRAILS[val] ? val : 'alum';
+}
+function renderSetup(){
+  const show = !store.data.onboarded;
+  $('#setupCard').style.display = show ? '' : 'none';
+  if(show){
+    if(!$('#setupName').value) $('#setupName').value = store.data.profile.name||'';
+    fillTrailSelect($('#setupTrail'), store.data.profile.trail);
+  }
+}
+function renderCountdown(){
+  const now = new Date();
+  const info = weekInfo(now);
+  $('#cdDays').textContent = daysUntilReady(now);
+  $('#cdLabel').textContent = info.beforeStart
+    ? 'Starts Mon Nov 9 · Ready-by Apr 15 · exact trip date TBD'
+    : 'Ready-by Apr 15 · exact trip date TBD';
+  $('#cdWeek').textContent = info.beforeStart ? 'Starts Mon Nov 9' : ('Week '+info.week+' / 24');
+  $('#cdPhase').textContent = info.phase;
+  const tr = trailOf(store.data.profile.trail);
+  $('#cdTrail').textContent = tr.label;
+}
+function renderWeek(){
+  const info = weekInfo(new Date());
+  const w = info.week, plan = PLAN[w-1];
+  $('#weekMeta').textContent = '· Week '+w+' of 24 · '+info.phase+(info.beforeStart?' · starts Mon Nov 9':'');
+  $('#weekFocus').textContent = 'Focus: '+plan.focus+' · Saturday target: '+fmt(plan.longMi)+' mi · Stairs target: '+fmtInt(plan.stairsFt)+' ft · Pack: '+plan.packLb+' lb';
+  const wkKey = 'w'+w;
+  const doneMap = store.data.done[wkKey] || {};
+  const sessions = sessionsForWeek(w);
+  $('#weekSessions').innerHTML = sessions.map(s=>
+    '<div class="sess'+(doneMap[s.key]?' done':'')+'">' +
+      '<span class="daychip">'+s.day+'</span>' +
+      '<input type="checkbox" data-sess="'+s.key+'"'+(doneMap[s.key]?' checked':'')+' aria-label="Mark '+esc(s.title)+' done">' +
+      '<div><div class="st">'+esc(s.title)+'</div><div class="sd">'+esc(s.desc)+'</div></div>' +
+    '</div>'
+  ).join('') +
+  '<details class="strength"><summary>Strength details (Mon + Wed, Week 1 spec)</summary><div style="margin-top:6px">'+STRENGTH_DETAILS+'</div></details>' +
+  ((w===8||w===16) ? '<p class="hint" style="margin:8px 0 0 0">Back-to-back week: add an easy 3 mi walk/hike on Sunday after Saturday\u2019s long hike.</p>' : '');
+  $('#weekSessions').querySelectorAll('input[data-sess]').forEach(cb=>{
+    cb.onchange = ()=>{
+      if(!store.data.done[wkKey]) store.data.done[wkKey] = {};
+      store.data.done[wkKey][cb.dataset.sess] = cb.checked;
+      store.save(); renderWeek();
+      const all = sessionsForWeek(w).every(s=>store.data.done[wkKey][s.key]);
+      if(all && !store.data.celebrated[wkKey]){
+        store.data.celebrated[wkKey]=true; store.save();
+        toast('Week '+w+' complete — all 5 sessions done! 🎉'); confetti();
+      } else if(cb.checked){ toast('Session done — nice work'); }
+    };
+  });
+  const nDone = sessions.filter(s=>doneMap[s.key]).length;
+  $('#weekDoneNote').innerHTML = nDone ? '<div class="pct" style="margin-top:8px">'+nDone+' of 5 sessions done this week</div>' : '';
+}
+function renderProgress(){
+  const prog = computeProgress(store.data.entries);
+  $('#overallPct').textContent = prog.overall;
+  $('#overallBar').style.width = prog.overall+'%';
+  const rows = [
+    ['🥾 Miles', prog.miles, TARGETS.miles, prog.milesPct, 'mi'],
+    ['⛰️ Vertical', prog.ft, TARGETS.ft, prog.ftPct, 'ft'],
+    ['✅ Sessions', prog.sessions, TARGETS.sessions, prog.sessPct, '']
+  ];
+  $('#progressRows').innerHTML = rows.map(r=>
+    '<div class="bdrow"><span class="bl">'+r[0]+'</span>' +
+    '<div class="bdbar"><div style="width:'+r[3]+'%"></div></div>' +
+    '<span class="bt">'+fmt(r[1])+' / '+fmtInt(r[2])+(r[4]?' '+r[4]:'')+' · '+r[3]+'%</span></div>'
+  ).join('');
+  $('#stMiles').textContent = fmt(prog.miles);
+  $('#stFt').textContent = fmtInt(prog.ft);
+  $('#stSessions').textContent = prog.sessions;
+  const filled = Math.min(30, Math.floor(prog.miles/5));
+  let bh='';
+  for(let i=1;i<=30;i++) bh += '<div class="bub'+(i<=filled?' done':'')+'">'+(i*5)+'</div>';
+  $('#bubbles').innerHTML = bh;
+}
+function renderCoach(){
+  const c = coachInfo(store.data.entries, new Date());
+  const box = $('#coach'); if(!box) return;
+  let html = '';
+  if(c.verdict==='welcome'){
+    html += '<div class="coach-line coach-big coach-mid">Welcome to LeConte training.</div>';
+    html += '<div class="coach-line">Week 1 prescription: Saturday long hike <b>'+fmt(PLAN[0].longMi)+' miles</b>, stairs <b>'+fmtInt(PLAN[0].stairsFt)+' ft</b> for the week, no pack weight yet. Log your first session below and this card will start coaching you.</div>';
+  } else {
+    const vtxt = c.verdict==='ahead' ? 'You\u2019re ahead of pace — nice cushion.'
+      : c.verdict==='behind' ? 'You\u2019re behind pace — fixable, start this week.'
+      : 'You\u2019re right on pace.';
+    html += '<div class="coach-line coach-big '+c.cls+'">'+vtxt+'</div>';
+    html += '<div class="coach-line">Planned long-hike miles through last week: <b>'+fmt(c.planned)+' mi</b>. You\u2019ve logged <b>'+fmt(c.actual)+' mi</b> of hikes + incline walks ('+(c.diff>=0?'+':'')+fmt(c.diff)+' mi).</div>';
+    if(c.catchUp>0) html += '<div class="coach-line">Catch-up idea: add one extra <b>'+fmt(Math.min(c.catchUp, c.plan.longMi+2))+'-mile</b> walk this week, or extend Saturday\u2019s hike a little — do not double up two hard days in a row.</div>';
+  }
+  html += '<div class="coach-line">This Saturday: <b>'+fmt(c.plan.longMi)+' miles</b> with a <b>'+c.plan.packLb+' lb</b> pack. Stairs target this week: <b>'+fmtInt(c.plan.stairsFt)+' ft</b>.</div>';
+  if(c.painWarn) html += '<div class="coach-line coach-warn"><b>Pain check:</b> you logged pain of 6+ in the last 7 days. Cut distance by 30% this week, take an extra rest day, and do not push through sharp pain.</div>';
+  box.innerHTML = html;
+}
+function renderEntries(){
+  const list = store.data.entries.slice().sort((a,b)=> a.date<b.date ? 1 : a.date>b.date ? -1 : (a.id<b.id?1:-1));
+  const el = $('#entries');
+  if(!list.length){ el.innerHTML = '<div class="empty">No sessions yet. Log your first one above.</div>'; return; }
+  el.innerHTML = list.map(e=>{
+    const bits = [];
+    if(Number(e.miles)>0) bits.push(fmt(e.miles)+' mi');
+    if(Number(e.ft)>0) bits.push(fmtInt(e.ft)+' ft');
+    if(Number(e.minutes)>0) bits.push(fmtInt(e.minutes)+' min');
+    if(Number(e.pack)>0) bits.push(e.pack+' lb pack');
+    if(Number(e.pain)>0) bits.push('pain '+e.pain);
+    return '<div class="entry"><div class="eicon">'+(ENTRY_ICONS[e.type]||'✅')+'</div>' +
+      '<div class="einfo"><div class="t">'+esc(e.type)+'</div><div class="d">'+prettyDate(e.date)+(e.note?' · '+esc(e.note):'')+'</div></div>' +
+      '<div class="emi">'+bits.join('<br>')+'</div>' +
+      '<button class="eact" data-del="'+e.id+'" aria-label="Delete entry">🗑</button></div>';
+  }).join('');
+  el.querySelectorAll('button[data-del]').forEach(b=>{ b.onclick = ()=>deleteEntry(b.dataset.del); });
+}
+function renderBoard(){
+  const p = store.data.profile;
+  const prog = computeProgress(store.data.entries);
+  const tr = trailOf(p.trail);
+  let html = '<div class="bdrow"><span class="bl">'+esc(p.name||'Pat')+' (you)</span>' +
+    '<div class="bdbar"><div style="width:'+prog.overall+'%"></div></div>' +
+    '<span class="bt">'+prog.overall+'% · '+fmt(prog.miles)+' mi</span></div>';
+  html += '<p class="hint" style="margin:6px 0 0">Summit trail: '+esc(tr.label)+' — '+esc(tr.desc)+'</p>';
+  if(cloudState==='on' && boardRows.length>1){
+    const others = boardRows.filter(r=>r.id!==p.id);
+    if(others.length) html += others.map(r=>'<div class="bdrow"><span class="bl">'+esc(r.name||'Hiker')+'</span><span class="bt">'+esc(trailOf(r.trail).label)+'</span></div>').join('');
+  }
+  $('#boardBody').innerHTML = html;
+  const st = boardStatusText();
+  $('#boardStatus').textContent = st;
+  $('#boardStatus').className = 'status ' + (cloudState==='on' ? 'ok' : '');
+  const cs = $('#cloudStatus');
+  if(cs){ cs.textContent = st; cs.className = 'status ' + (cloudState==='on' ? 'ok' : ''); }
 }
 const DISPLAY_OPTS=[['bubbles','Mile bubbles'],['verse','Verse card'],['coach','Game plan']];
 function renderDisplayToggles(){
   const el=$('#displayToggles'); if(!el) return;
   const d=store.data.display||{};
   el.innerHTML=DISPLAY_OPTS.map(([k,label])=>
-    `<label class="switchrow"><span>${label}</span><span class="switch"><input type="checkbox" data-dk="${k}"${d[k]?' checked':''}><span class="sl"></span></span></label>`
+    '<label class="switchrow"><span>'+label+'</span><span class="switch"><input type="checkbox" data-dk="'+k+'"'+(d[k]?' checked':'')+'><span class="sl"></span></span></label>'
   ).join('');
   el.querySelectorAll('input[data-dk]').forEach(cb=>cb.onchange=()=>{
     store.data.display[cb.dataset.dk]=cb.checked; store.save(); render();
@@ -1061,646 +906,79 @@ function renderDisplayToggles(){
 }
 function applyDisplay(){
   const d=store.data.display||{};
-  $('#bubblesCard').style.display=d.bubbles?'':'none';
+  $('#bubblesCard').style.display=d.bubbles===false?'none':'';
   $('#verseCard').style.display=d.verse===false?'none':'';
   $('#coachCard').style.display=d.coach===false?'none':'';
 }
 function render(){
-  pinActiveToSelf();
-  renderGoalChips(); renderCardsLine(); renderNudge(); renderVerse(); renderStats(); renderCoach(); renderBubbles(); renderLeaderboard(); renderEntries(); renderProfileList(); renderDisplayToggles(); applyDisplay();
+  renderSetup(); renderCountdown(); renderWeek(); renderProgress();
+  renderCoach(); renderEntries(); renderBoard(); renderVerse();
+  renderDisplayToggles(); applyDisplay();
 }
-function renderGoalChips(){
-  const p=activeProfile(), el=$('#goalChips');
-  if(!p){ el.innerHTML=''; return; }
-  const g=activeGoal();
-  el.innerHTML = enrolled(p).map(x=>{
-    const c=CHALLENGES[x];
-    return `<button type="button" class="chip gchip ${c.css}${x===g?' active':''}" data-goal="${x}"><span class="dot" style="background:${c.solid}"></span>${c.label}</button>`;
-  }).join('');
-  el.querySelectorAll('[data-goal]').forEach(b=>b.onclick=()=>{
-    store.data.selected[p.id]=Number(b.dataset.goal); store.save(); render();
-  });
-}
-function renderCardsLine(){
-  const p=activeProfile(), el=$('#cardsLine');
-  if(!p){ el.innerHTML=''; return; }
-  const g=activeGoal(), en=enrolled(p);
-  let html=`Showing <b>${g}-Mile</b>`;
-  if(en.length<3) html+=` · <a href="#" id="addCardLink">wanna add another card?</a>`;
-  el.innerHTML=html;
-  const a=$('#addCardLink');
-  if(a) a.onclick=e=>{ e.preventDefault(); openCards(); };
-}
-function openCards(){ renderCardsChips(); $('#cardsModal').classList.add('open'); document.body.style.overflow='hidden'; }
-function closeCards(){ $('#cardsModal').classList.remove('open'); document.body.style.overflow=''; }
-function renderCardsChips(){
-  const p=activeProfile(); if(!p) return;
-  const en=enrolled(p);
-  $('#cardsChips').innerHTML=[20,50,100].map(x=>{
-    const c=CHALLENGES[x], on=en.includes(x);
-    return `<button type="button" class="chip${on?' active':''}" data-cx="${x}"><span class="dot" style="background:${c.solid}"></span>${c.label}</button>`;
-  }).join('');
-  $('#cardsChips').querySelectorAll('[data-cx]').forEach(b=>b.onclick=()=>{
-    const gx=Number(b.dataset.cx);
-    let ne=enrolled(p);
-    if(ne.includes(gx)){
-      if(ne.length===1){ toast('Keep at least one card'); return; }
-      ne=ne.filter(y=>y!==gx);
-    } else ne=[...ne,gx].sort((a,b)=>a-b);
-    p.challenges=ne; store.save(); renderCardsChips(); render();
-    cloudOp(()=>sb.from('challenge_profiles').update({challenges:ne}).eq('id',p.id), 'Cards not synced');
-  });
-}
-function renderNudge(){
-  const p=activeProfile(), el=$('#nudge');
-  if(!p){ el.style.display='none'; return; }
-  const loggedToday=entriesFor(p.id).some(e=>e.date===todayStr());
-  const hr=new Date().getHours();
-  if(!loggedToday && hr>=12){
-    el.style.display='block';
-    el.innerHTML=`⏰ No miles logged yet today, ${esc(p.name)} — even a 1-mile walk keeps the streak alive. <a href="#" id="nudgeLog">Log them now</a>.`;
-    $('#nudgeLog').onclick=e=>{ e.preventDefault(); cancelEdit(); openLog(); };
-  } else el.style.display='none';
-}
-function renderCoach(){
-  const p=activeProfile(), g=activeGoal(), CH=CHALLENGES[g];
-  const box=$('#coach');
-  if(!p){ box.innerHTML=''; $('#coachGoal').textContent=''; return; }
-  $('#coachGoal').textContent='· '+CH.label;
-  const t=allocatedFor(p.id,g);
-  const now=new Date();
-  const inOct=now.getFullYear()===2026 && now.getMonth()===9;
-  const day=inOct?now.getDate():0;
-  const dl=daysLeft();
-  const remaining=Math.max(0, g-t);
-  if(t>=g){
-    box.innerHTML=`<div class="coach-line coach-big coach-ok">Challenge complete — ${g} miles done! Time to celebrate. 🎉</div>`;
-    return;
-  }
-  if(!inOct || dl<=0){
-    box.innerHTML=`<div class="coach-line">The challenge window has ended.</div>`;
-    return;
-  }
-  const needed=remaining/dl;
-  const expected=g*day/31, diff=t-expected;
-  let verdict, cls;
-  if(diff>=0.5){ verdict=`You're <b>${fmt(diff)} mi ahead of pace</b> — nice cushion.`; cls='coach-ok'; }
-  else if(diff<=-0.5){ verdict=`You're <b>${fmt(-diff)} mi behind pace</b>.`; cls='coach-warn'; }
-  else { verdict=`You're right <b>on pace</b>.`; cls='coach-mid'; }
-  const en=enrolled(p);
-  box.innerHTML=`
-    <div class="coach-line coach-big ${cls}">${verdict}</div>
-    <div class="coach-line">To finish the ${g}-mile by Oct 31: average <b>${fmt(needed)} mi/day</b> (about <b>${fmt(needed*7)} mi/week</b>). That's ${fmt(remaining)} miles over ${dl} day${dl===1?'':'s'}.</div>
-    ${diff<=-2?`<div class="coach-line">Catch-up idea: one <b>${fmt(Math.min(remaining, needed+2))}-mile</b> session this week would erase most of the gap.</div>`:''}
-    ${en.length>1?`<div class="coach-line" style="color:var(--muted);font-size:13px">Every mile counts once — the first ${en[0]} fill the ${en[0]}-mile, then the rest flow to the next challenge.</div>`:''}`;
-}
-function daysLeft(){
-  const n=new Date();
-  if(n.getFullYear()<2026 || (n.getFullYear()===2026 && n.getMonth()<9)) return 31;
-  if(n.getFullYear()>2026 || n.getMonth()>9) return 0;
-  return Math.max(0, 31 - n.getDate() + 1);
-}
-function streakFor(pid){
-  const days=new Set(entriesFor(pid).filter(e=>Number(e.miles)>0).map(e=>e.date));
-  let d=new Date(), s=0;
-  if(!days.has(dateStr(d))) d.setDate(d.getDate()-1);
-  while(days.has(dateStr(d))){ s++; d.setDate(d.getDate()-1); }
-  return s;
-}
-function bestDayFor(pid){
-  const by={};
-  for(const e of entriesFor(pid)) by[e.date]=(by[e.date]||0)+(Number(e.miles)||0);
-  return Math.max(0,...Object.values(by));
-}
-function renderStats(){
-  const p=activeProfile(), g=activeGoal(), CH=CHALLENGES[g];
-  const en = p ? enrolled(p) : [50];
-  const multi = en.length>1;
-  // Progress is measured against the TOTAL commitment (sum of enrolled
-  // challenges), so multi-card users see their real overall progress.
-  const t = p ? totalFor(p.id) : 0;
-  const commit = p ? commitment(p) : 50;
-  const barCH = CHALLENGES[en[0]];
-  $('#statsTitle').textContent = p ? (multi ? `${p.name}'s progress` : `${p.name}'s progress · ${CH.label}`) : 'Progress';
-  const pct = commit>0 ? Math.min(100, t/commit*100) : 0;
-  $('#totalMi').textContent = fmt(t);
-  $('#goalMi').textContent = '/ '+commit+' mi';
-  const bf=$('#barFill'); bf.style.width=pct+'%'; bf.style.background=barCH.grad;
-  $('#pctTxt').textContent = Math.round(pct)+'% complete';
-  $('#stRemain').textContent = fmt(Math.max(0, commit-t));
-  const dl = daysLeft();
-  $('#stPace').textContent = dl>0 ? fmt(Math.max(0,commit-t)/dl) : '—';
-  $('#stStreak').textContent = p ? streakFor(p.id) : 0;
-  $('#stBest').textContent = p ? fmt(bestDayFor(p.id)) : 0;
-  $('#completeBadge').innerHTML = t>=commit
-    ? `<div class="complete-badge">🎉 ${commit} MILES — CHALLENGE COMPLETE! 🎉</div>` : '';
-  // Per-card breakdown for multi-card users
-  const bd=$('#goalBreakdown');
-  if(bd){
-    bd.innerHTML = p && multi ? en.map(x=>{
-      const a=allocatedFor(p.id,x), cc=CHALLENGES[x], pc=Math.min(100,a/x*100);
-      return `<div class="bdrow"><span class="bl"><span class="dot" style="background:${cc.solid}"></span>${cc.label}</span>`
-        +`<div class="bdbar"><div style="width:${pc}%;background:${cc.grad}"></div></div>`
-        +`<span class="bt">${fmt(a)}/${x}</span></div>`;
-    }).join('') : '';
-  }
-  if(p){
-    const marks=[{k:'half', at:commit/2, msg:`${fmt(commit/2)} miles — halfway there!`},
-                 {k:'full', at:commit,   msg:`${commit} miles! Challenge complete!`}];
-    for(const m of marks){
-      const key=p.id+':total:'+m.k;
-      if(t>=m.at && !store.data.milestones[key]){
-        store.data.milestones[key]=true; store.save(); confetti(); toast(m.msg);
-      }
-    }
-  }
-}
-function renderBubbles(){
-  if(store.data.display && store.data.display.bubbles===false) return;
-  const p=activeProfile(), g=activeGoal(), CH=CHALLENGES[g];
-  const t=p?allocatedFor(p.id,g):0;
-  const whole=Math.floor(t), frac=t-whole;
-  $('#bubbles').className='bubbles '+CH.css;
-  let html='';
-  for(let i=1;i<=g;i++){
-    const tag=`data-bub="${i}"`;
-    if(i<=whole) html+=`<div class="bub done ${CH.css}" ${tag}>${i}</div>`;
-    else if(i===whole+1 && frac>0.009)
-      html+=`<div class="bub" ${tag} style="background:linear-gradient(to top, #bfe3f5 ${Math.round(frac*100)}%, #fffdf4 ${Math.round(frac*100)}%)">${i}</div>`;
-    else html+=`<div class="bub" ${tag}>${i}</div>`;
-  }
-  $('#bubbles').innerHTML=html;
-  $('#bubbles').querySelectorAll('.bub').forEach(b=>b.onclick=()=>bubbleTap(Number(b.dataset.bub)));
-}
-// Tap a bubble to log miles up to that number (uses the selected activity, dated today)
-function bubbleTap(i){
-  const p=activeProfile(); if(!p){ toast('Add a tracker in Settings first'); return; }
-  const g=activeGoal();
-  const t=allocatedFor(p.id,g);
-  if(i<=t){ toast('That mile is already done — nice!'); return; }
-  const add=Math.round((i-t)*10)/10;
-  const e={id:uid(), profileId:p.id, date:todayStr(), activity:selectedActivity, miles:add, note:''};
-  store.data.mine.push(e.id);
+
+/* ---------- actions ---------- */
+function submitForm(){
+  const raw = { date:$('#fDate').value, type:$('#fType').value, miles:$('#fMiles').value,
+    ft:$('#fFt').value, minutes:$('#fMinutes').value, pack:$('#fPack').value,
+    pain:$('#fPain').value, note:$('#fNote').value.trim() };
+  const v = validateEntry(raw);
+  if(!v.ok){ toast(v.error); return; }
+  const e = Object.assign({id:uid()}, v.entry);
   store.data.entries.push(e); store.save(); render();
-  toast(`${fmt(add)} mi ${actLabel()} logged`);
-  cloudOp(()=>sb.from('challenge_entries').insert({id:e.id, profile_id:e.profileId, entry_date:e.date, activity:e.activity, miles:e.miles, note:null}), 'Add not synced');
+  $('#fMiles').value=''; $('#fFt').value=''; $('#fMinutes').value=''; $('#fPack').value=''; $('#fNote').value='';
+  toast(e.type+' logged — nice work');
+  cloudPushEntry(e);
 }
-let lbQuery='', lbLetter='All';
-function renderAz(){
-  const letters=['All','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
-  $('#lbAz').innerHTML=letters.map(l=>`<button type="button" data-l="${l}" class="${l===lbLetter?'on':''}">${l}</button>`).join('');
-  $('#lbAz').querySelectorAll('button').forEach(b=>b.onclick=()=>{ lbLetter=b.dataset.l; renderLeaderboard(); });
+function deleteEntry(id){
+  if(!confirm('Delete this session?')) return;
+  store.data.entries = store.data.entries.filter(e=>e.id!==id);
+  store.save(); render(); toast('Session deleted');
+  cloudDeleteEntry(id);
 }
-function renderLeaderboard(){
-  $('#lbTitle').textContent='Leaderboard';
-  renderAz();
-  const q=lbQuery.trim().toLowerCase();
-  const all=lbPeople();
-  const people=all.filter(p=>{
-    if(q && !p.name.toLowerCase().includes(q)) return false;
-    if(lbLetter!=='All' && p.name.charAt(0).toUpperCase()!==lbLetter) return false;
-    return true;
-  });
-  $('#lbCount').textContent=all.length+(all.length===1?' person':' people');
-  $('#lbFoot').textContent=people.length+' of '+all.length+(all.length===1?' person':' people');
-  $('#leaderboard').innerHTML = people.map(p=>{
-    const en=enrolled(p);
-    const allDone=en.every(g=>allocatedFor(p.id,g)>=g);
-    const cards=[20,50,100].map(g=>{
-      if(!en.includes(g)) return '<div class="lbctile empty" aria-hidden="true"></div>';
-      const a=allocatedFor(p.id,g), cc=CHALLENGES[g], pc=Math.min(100,a/g*100);
-      const done=a>=g;
-      return `<div class="lbctile${done?' done':''}" style="--c1:${cc.solid};--c2:${cc.deep}">`
-        +`<div class="lbcrow"><span>${g} mi</span><b>${done?'🏆 Done':fmt(a)+'/'+g}</b></div>`
-        +`<div class="lbcbar"><div style="width:${pc}%"></div></div></div>`;
-    }).join('');
-    const cardsHtml = `<div class="lbcards">${cards}</div>`;
-    const me = p.id===store.data.selfProfileId;
-    return `<div class="lbperson${me?' me':''}"><div class="lbname"><span class="dot" style="background:${esc(p.color||'#2b8fc4')}"></span><span class="nm">${esc(p.name)}${me?'<span class="youbadge">You</span>':''}${allDone?' 🏆':''}</span></div>${cardsHtml}</div>`;
-  }).join('') || `<div class="empty">No trackers yet.</div>`;
+function finishSetup(useDefaults){
+  const name = useDefaults ? 'Pat' : ($('#setupName').value.trim() || 'Pat');
+  const trail = useDefaults ? (store.data.profile.trail||'alum') : $('#setupTrail').value;
+  store.data.profile.name = name;
+  store.data.profile.trail = TRAILS[trail] ? trail : 'alum';
+  store.data.onboarded = true; store.save(); render();
+  toast('You\u2019re set, '+name+' — Week 1 starts Mon Nov 9');
+  syncBoard();
 }
-function openLb(){ $('#lbModal').classList.add('open'); document.body.style.overflow='hidden'; }
-function closeLb(){ $('#lbModal').classList.remove('open'); document.body.style.overflow=''; }
-function renderEntries(){
-  const p=activeProfile();
-  const list = p ? entriesFor(p.id).sort((a,b)=> b.date.localeCompare(a.date)) : [];
-  $('#entries').innerHTML = list.slice(0,30).map(e=>{
-    const a=ACTIVITIES[e.activity]||{label:e.activity,icon:'•'};
-    return `<div class="entry"><div class="eicon">${a.icon}</div>
-      <div class="einfo"><div class="t">${a.label}${e.note?` — ${esc(e.note)}`:''}</div>
-      <div class="d">${prettyDate(e.date)}</div></div>
-      <div class="emi">${fmt(Number(e.miles)||0)} mi</div>
-      <button class="eact" data-edit="${e.id}" aria-label="Edit">✎</button>
-      <button class="eact" data-del="${e.id}" aria-label="Delete">🗑</button></div>`;
-  }).join('') || `<div class="empty">No miles logged yet — add your first one above.</div>`;
-  $('#entries').querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>deleteEntry(b.dataset.del));
-  $('#entries').querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>startEdit(b.dataset.edit));
-}
-let mergeSel=new Set(), mergePicking=false; // organizer multi-select for merging duplicates
-function mergeBarHtml(){
-  if(!isBoardAdmin()) return '';
-  if(mergePicking && mergeSel.size>=2){
-    const ids=[...mergeSel];
-    const rows=ids.map(id=>{
-      const p=store.data.profiles.find(x=>x.id===id); if(!p) return '';
-      const mi=store.data.entries.filter(e=>e.profileId===id).reduce((s,e)=>s+Number(e.miles||0),0);
-      return `<button class="btn secondary" style="margin-top:6px" data-mgkeeper="${id}">Keep ${esc(p.name)} (${fmt(mi)} mi)</button>`;
-    }).join('');
-    return `<div style="margin-top:10px"><div class="hint"><b>Merge ${ids.length} trackers</b> — all miles move into the one you keep. The others are removed.</div>${rows}<button class="btn secondary" id="mgCancel" style="margin-top:6px">Cancel</button></div>`;
-  }
-  if(mergeSel.size>=2)
-    return `<button class="btn secondary" id="mgGo" type="button" style="margin-top:10px">Merge ${mergeSel.size} selected…</button>`;
-  if(mergeSel.size===1)
-    return `<div class="hint" style="margin-top:8px">Tick one more tracker to merge them together.</div>`;
-  return '';
-}
-async function doMerge(keepId,dropId,quiet){
-  const keep=store.data.profiles.find(p=>p.id===keepId), drop=store.data.profiles.find(p=>p.id===dropId);
-  if(!keep||!drop||!isBoardAdmin()){ toast('Organizer tools required'); return; }
-  for(const e of store.data.entries) if(e.profileId===dropId) e.profileId=keepId;
-  keep.challenges=[...new Set([...enrolled(keep),...enrolled(drop)])].sort((a,b)=>a-b);
-  if(!keep.challenges.length) keep.challenges=[50];
-  store.data.profiles=store.data.profiles.filter(p=>p.id!==dropId);
-  if(store.data.selfProfileId===dropId) store.data.selfProfileId=keepId;
-  if(store.data.activeProfileId===dropId) store.data.activeProfileId=keepId;
-  if(!quiet){ store.save(); render(); toast(`Merged into ${keep.name} ✓`); }
-  if(sb){
-    try{
-      await sb.from('challenge_entries').update({profile_id:keepId}).eq('profile_id',dropId);
-      await sb.from('challenge_profiles').update({challenges:keep.challenges}).eq('id',keepId);
-      await sb.from('challenge_profiles').delete().eq('id',dropId);
-    }catch(e){ if(!quiet) toast('Merge saved here — will sync when online'); }
-  }
-}
-function renderProfileList(){
-  $('#profileList').innerHTML = store.data.profiles.map((p,i)=>{
-    const en=enrolled(p);
-    const editable=canEditProfile(p.id);
-    const ch=[20,50,100].map(x=>{
-      const c=CHALLENGES[x], on=en.includes(x);
-      if(!editable) return on?`<span class="cbtn ${c.css} on" style="cursor:default">${x}</span>`:'';
-      return `<button class="cbtn ${c.css}${on?' on':''}" data-ch="${p.id}:${x}">${x}</button>`;
-    }).join('');
-    return `<div style="border-bottom:1px solid var(--line);padding:10px 0">
-      <div class="prow" style="border-bottom:none;padding:0 0 2px">
-      ${isBoardAdmin()?`<input type="checkbox" data-mgcb="${p.id}"${mergeSel.has(p.id)?' checked':''} aria-label="Select for merge" style="width:22px;height:22px;accent-color:var(--blue);flex:none">`:''}
-      <span class="dot" style="background:${esc(p.color||'#2b8fc4')}"></span>
-      <span class="nm">${esc(p.name)}</span>
-      ${editable?`<button data-rn="${p.id}">Rename</button>`:''}
-      ${editable&&store.data.profiles.length>1?`<button data-rm="${p.id}">Remove</button>`:''}</div>
-      <div class="chrow"><span class="cl">CHALLENGES</span>${ch}</div></div>`;
-  }).join('') + mergeBarHtml();
-  $('#profileList').querySelectorAll('[data-rn]').forEach(b=>b.onclick=()=>{
-    const p=store.data.profiles.find(x=>x.id===b.dataset.rn);
-    const n=prompt('Name for this tracker:', p.name);
-    if(n && n.trim()){ p.name=n.trim().slice(0,24); store.save(); render();
-      cloudOp(()=>sb.from('challenge_profiles').update({name:p.name}).eq('id',p.id), 'Rename not synced'); }
-  });
-  $('#profileList').querySelectorAll('[data-rm]').forEach(b=>b.onclick=()=>{
-    const p=store.data.profiles.find(x=>x.id===b.dataset.rm);
-    if(!p || !canEditProfile(p.id)){ toast('You can only remove your own tracker'); return; }
-    if(!confirm(`Remove ${p.name} and all their entries?`)) return;
-    store.data.entries=store.data.entries.filter(e=>e.profileId!==p.id);
-    store.data.profiles=store.data.profiles.filter(x=>x.id!==p.id);
-    if(p.id===store.data.selfProfileId){
-      // You removed your own tracker: stay with a surviving tracker of the
-      // same name if there is one, otherwise run setup again. Never silently
-      // adopt someone else's tracker.
-      const nm=(p.name||'').trim().toLowerCase();
-      const same=nm && store.data.profiles.find(x=>(x.name||'').trim().toLowerCase()===nm);
-      if(same){ store.data.selfProfileId=same.id; }
-      else { store.data.selfProfileId=null; store.data.onboarded=false; }
-    }
-    if(!store.data.profiles.find(x=>x.id===store.data.activeProfileId)){
-      const selfOk=store.data.selfProfileId && store.data.profiles.find(x=>x.id===store.data.selfProfileId);
-      store.data.activeProfileId=selfOk?store.data.selfProfileId:(store.data.profiles[0]?store.data.profiles[0].id:null);
-    }
-    store.save(); render();
-    if(!store.data.onboarded) openSetup();
-    cloudOp(()=>sb.from('challenge_profiles').delete().eq('id',p.id), 'Remove not synced');
-  });
-  $('#profileList').querySelectorAll('[data-mgcb]').forEach(cb=>cb.onchange=()=>{
-    if(cb.checked) mergeSel.add(cb.dataset.mgcb); else mergeSel.delete(cb.dataset.mgcb);
-    if(mergeSel.size<2) mergePicking=false;
-    renderProfileList();
-  });
-  const mgGo=$('#mgGo'); if(mgGo) mgGo.onclick=()=>{ mergePicking=true; renderProfileList(); };
-  const mgc=$('#mgCancel'); if(mgc) mgc.onclick=()=>{ mergePicking=false; renderProfileList(); };
-  $('#profileList').querySelectorAll('[data-mgkeeper]').forEach(b=>b.onclick=async()=>{
-    const keepId=b.dataset.mgkeeper;
-    const drops=[...mergeSel].filter(id=>id!==keepId);
-    const keep=store.data.profiles.find(p=>p.id===keepId);
-    if(!keep||!drops.length) return;
-    const mi=drops.reduce((s,id)=>s+store.data.entries.filter(e=>e.profileId===id).reduce((a,e)=>a+Number(e.miles||0),0),0);
-    if(!confirm(`Merge into "${keep.name}"? ${fmt(mi)} miles move over and ${drops.length} other tracker${drops.length>1?'s':''} will be removed.`)) return;
-    for(const d of drops) await doMerge(keepId,d,true);
-    mergeSel.clear(); mergePicking=false;
-    store.save(); render();
-    toast(`Merged into ${keep.name} ✓`);
-  });
-  $('#profileList').querySelectorAll('[data-ch]').forEach(b=>b.onclick=()=>{
-    const parts=b.dataset.ch.split(':'), pid=parts[0], gx=Number(parts[1]);
-    const p=store.data.profiles.find(x=>x.id===pid); if(!p) return;
-    let en=enrolled(p);
-    if(en.includes(gx)){
-      if(en.length===1){ toast('Keep at least one challenge'); return; }
-      en=en.filter(y=>y!==gx);
-    } else en=[...en,gx].sort((a,b)=>a-b);
-    p.challenges=en; store.save(); render();
-    cloudOp(()=>sb.from('challenge_profiles').update({challenges:en}).eq('id',p.id), 'Challenges not synced');
-  });
-}
-
-/* ---------- form ---------- */
-function renderChips(){
-  $('#actChips').innerHTML = Object.entries(ACTIVITIES).map(([k,a])=>
-    `<button type="button" class="chip${k===selectedActivity?' active':''}" data-act="${k}"><span class="aicon">${a.icon}</span> ${a.label}</button>`).join('');
-  $('#actChips').querySelectorAll('.chip').forEach(c=>c.onclick=()=>{
-    selectedActivity=c.dataset.act; renderChips();
-    const ic=$('#actChips .chip.active .aicon');
-    if(ic){ void ic.offsetWidth; ic.classList.add('pop'); }
-  });
-}
-function startEdit(id){
-  const e=store.data.entries.find(x=>x.id===id); if(!e) return;
-  editingId=id; selectedActivity=e.activity;
-  $('#fDate').value=e.date; $('#fMiles').value=e.miles; $('#fNote').value=e.note||'';
-  $('#formTitle').textContent='Edit entry'; $('#submitBtn').textContent='Save changes';
-  $('#cancelEdit').style.display='block'; renderChips();
-  openLog();
-}
-function cancelEdit(){
-  editingId=null; $('#logForm').reset(); $('#fDate').value=todayStr();
-  $('#formTitle').textContent='Log miles'; $('#submitBtn').textContent='Add miles';
-  $('#cancelEdit').style.display='none';
-}
-function openLog(){ $('#logModal').classList.add('open'); document.body.style.overflow='hidden'; }
-function closeLog(){ $('#logModal').classList.remove('open'); document.body.style.overflow=''; }
-/* ---------- first-launch welcome setup ---------- */
-let setupChallenges=[50];
-function renderSetupChips(){
-  $('#setupChips').innerHTML=[20,50,100].map(g=>
-    `<button type="button" class="chip${setupChallenges.includes(g)?' active':''}" data-g="${g}">${g}-Mile</button>`).join('');
-  $('#setupChips').querySelectorAll('.chip').forEach(b=>b.onclick=()=>{
-    const g=+b.dataset.g;
-    if(setupChallenges.includes(g)){
-      if(setupChallenges.length>1) setupChallenges=setupChallenges.filter(x=>x!==g);
-    } else setupChallenges.push(g);
-    renderSetupChips();
-  });
-}
-let setupShare='join';
-function renderSetupShare(){
-  document.querySelectorAll('#setupShare .chip').forEach(b=>{
-    b.classList.toggle('active', b.dataset.share===setupShare);
-    b.onclick=()=>{ setupShare=b.dataset.share; renderSetupShare(); };
-  });
-  $('#setupShareHint').textContent = setupShare==='join'
-    ? 'Your name and cards show on the shared board.'
-    : 'Private — your miles stay on this phone only.';
-}
-function openSetup(){
-  setupChallenges=[50]; setupShare='join'; renderSetupShare();
-  pendingSetup=null; hideSetupMatches();
-  const p=activeProfile();
-  $('#setupName').value = (p && p.name && p.name!=='Pat') ? p.name : '';
-  renderSetupChips();
-  $('#setupModal').classList.add('open'); document.body.style.overflow='hidden';
-}
-let pendingSetup=null; // {p, nm, ch} while the user picks from name matches
-// Name matching for the setup picker: exact, same first name, or one name
-// starting with the other ("Patricia" finds "Patricia Remiesiewicz").
-// Biased toward showing candidates — the picker lets the user decide.
-function namesMatch(a,b){
-  a=(a||'').trim().toLowerCase(); b=(b||'').trim().toLowerCase();
-  if(!a||!b) return false;
-  if(a===b) return true;
-  const aw=a.split(/\s+/)[0], bw=b.split(/\s+/)[0];
-  if(aw===bw&&aw.length>=2) return true;
-  const short=Math.min(a.length,b.length);
-  return short>=2&&(a.startsWith(b)||b.startsWith(a));
-}
-async function finishSetup(){
-  let p=activeProfile(); if(!p) return;
-  const nm=($('#setupName').value.trim()||'Me').slice(0,30);
-  const ch=setupChallenges.slice().sort((a,b)=>a-b);
-  const join=(setupShare==='join');
-  store.data.onboarded=true;
-  store.data.shareBoard=join;
-  store.save();
-  initSupabase();
-  if(sb && join){
-    // Same-name check: if the board already has this name, let the user pick
-    // their tracker from a list instead of a yes/no popup (handles 4 Justins).
-    let matches=[];
-    try{
-      const {data:cloud}=await sb.from('challenge_profiles').select('id,name,color,challenges');
-      matches=(cloud||[]).filter(r=>namesMatch(r.name,nm) && r.id!==p.id);
-      if(matches.length){
-        try{
-          const {data:ents}=await sb.from('challenge_entries').select('profile_id,miles');
-          const totals={};
-          for(const e of (ents||[])) totals[e.profile_id]=(totals[e.profile_id]||0)+Number(e.miles||0);
-          matches.forEach(m=>{ m._miles=totals[m.id]||0; });
-        }catch(e2){}
-      }
-    }catch(e){ matches=[]; }
-    if(matches.length){ pendingSetup={p,nm,ch}; showSetupMatches(nm,matches); return; }
-    await setupCreateNew(p,nm,ch);
-  }else{
-    p.name=nm; p.challenges=ch;
-    store.data.selfProfileId=p.id;
-    finishSetupDone(p);
-  }
-}
-async function setupCreateNew(p,nm,ch){
-  p.name=nm; p.challenges=ch;
-  try{ await sb.from('challenge_profiles').upsert({id:p.id, name:p.name, color:p.color, challenges:p.challenges}); }
-  catch(e){ toast('Profile not synced — kept on this device only'); }
-  store.data.selfProfileId=p.id;
-  store.data.mine=(store.data.mine||[]).filter(id=>id!==p.id);
-  try{ await pullFromCloud(); }catch(e){}
-  finishSetupDone(activeProfile());
-}
-async function setupAdopt(p,match){
-  store.data.profiles=store.data.profiles.filter(x=>x.id!==p.id);
-  store.data.mine=(store.data.mine||[]).filter(id=>id!==p.id);
-  const ch0=Array.isArray(match.challenges)?match.challenges.filter(g=>CHALLENGES[g]):[];
-  const np={id:match.id, name:match.name, color:match.color||COLORS[0], challenges:ch0.length?ch0:[50]};
-  store.data.profiles.push(np);
-  store.data.activeProfileId=np.id;
-  store.data.selfProfileId=np.id;
-  try{ await pullFromCloud(); }catch(e){}
-  finishSetupDone(activeProfile());
-}
-function finishSetupDone(p){
-  if(!p) p=activeProfile();
-  store.data.selected[p.id]=p.challenges[0];
-  store.save();
-  $('#setupModal').classList.remove('open'); document.body.style.overflow='';
-  render();
-  setTimeout(maybeInstallPrompt, 600);
-}
-function showSetupMatches(nm,matches){
-  $('#setupForm').style.display='none';
-  const box=$('#setupMatches'); box.style.display='';
-  $('#setupMatchesHint').textContent=`We found trackers similar to "${nm}" — tap yours below. Not you? Go back and add your last name, or create a separate tracker.`;
-  $('#setupMatchList').innerHTML=matches.map(m=>{
-    const ch=(Array.isArray(m.challenges)?m.challenges.filter(g=>CHALLENGES[g]):[50]).join(' · ');
-    return `<button type="button" class="matchbtn" data-mid="${m.id}">`
-      +`<span class="dot" style="background:${esc(m.color||'#2b8fc4')}"></span>`
-      +`<span class="nm">${esc(m.name)}</span>`
-      +`<span class="mi">${ch} mi · ${fmt(m._miles||0)} logged</span></button>`;
-  }).join('');
-  box.querySelectorAll('[data-mid]').forEach(b=>b.onclick=()=>{
-    const m=matches.find(x=>x.id===b.dataset.mid);
-    const s=pendingSetup; pendingSetup=null; hideSetupMatches();
-    setupAdopt(s.p,m);
-  });
-  $('#setupMatchNew').onclick=()=>{
-    const s=pendingSetup;
-    // Single first name + existing matches = likely duplicate. Nudge once.
-    const singleWord=s && s.nm && !/\s/.test(s.nm.trim());
-    if(singleWord && !confirm(`"${s.nm}" is already on the board. Create a separate tracker for "${s.nm}"? Adding your last name avoids mix-ups.`)) return;
-    pendingSetup=null; hideSetupMatches(); setupCreateNew(s.p,s.nm,s.ch);
-  };
-  $('#setupMatchBack').onclick=()=>{ pendingSetup=null; hideSetupMatches(); };
-}
-function hideSetupMatches(){ $('#setupMatches').style.display='none'; $('#setupForm').style.display=''; }
-function maybeSetup(){ if(!store.data.onboarded) openSetup(); }
-/* ---------- install prompt (Android one-tap, iOS guided steps) ---------- */
-let deferredPrompt=null;
-window.addEventListener('beforeinstallprompt',e=>{ e.preventDefault(); deferredPrompt=e; });
-function isStandalone(){
-  return (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone===true;
-}
-function isIOS(){ return /iphone|ipad|ipod/i.test(window.navigator.userAgent||''); }
-function installSeen(){ try{ return localStorage.getItem('jct50-install')==='done'; }catch(e){ return true; } }
-function markInstallSeen(){ try{ localStorage.setItem('jct50-install','done'); }catch(e){} }
-function openInstall(){
-  if(isStandalone()){ toast('Already installed — look for the October icon on your home screen'); return; }
-  const steps=$('#installSteps'), go=$('#installGo');
-  if(deferredPrompt){
-    // Android/Chrome: real one-tap install
-    $('#installHint').textContent='Add October Challenge to your home screen for one-tap access — just like a real app.';
-    steps.innerHTML='';
-    go.style.display=''; go.textContent='Install app';
-  } else if(isIOS()){
-    // iPhone: guided manual steps
-    $('#installHint').textContent='On iPhone it takes 3 quick taps:';
-    steps.innerHTML='<div style="background:#f6fafd;border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:10px 0;font-size:15px;line-height:2">'
-      +'<div>1️⃣ Tap the <b>Share</b> button in Safari <span style="font-size:18px">⎙</span><br><span style="color:var(--muted);font-size:13px">(the square with an arrow pointing up, at the bottom)</span></div>'
-      +'<div>2️⃣ Scroll down and tap <b>Add to Home Screen</b></div>'
-      +'<div>3️⃣ Tap <b>Add</b> in the top-right corner</div></div>';
-    go.style.display='none';
-  } else {
-    $('#installHint').textContent='Use your browser\u2019s \u201cInstall\u201d or \u201cAdd to Home Screen\u201d option to keep October Challenge one tap away.';
-    steps.innerHTML='';
-    go.style.display='none';
-  }
-  $('#installModal').classList.add('open'); document.body.style.overflow='hidden';
-}
-function closeInstall(){ $('#installModal').classList.remove('open'); document.body.style.overflow=''; }
-function maybeInstallPrompt(){ if(!isStandalone() && !installSeen()) openInstall(); }
-async function submitForm(){
-  // Miles always go to the tracker this device owns — never someone else's,
-  // no matter what the active pointer says.
-  const selfId=store.data.selfProfileId;
-  const own=selfId && store.data.profiles.find(x=>x.id===selfId);
-  if(own && store.data.activeProfileId!==selfId){ store.data.activeProfileId=selfId; store.save(); }
-  const p=own || activeProfile();
-  if(!p){ toast('Add a tracker in Settings first'); return; }
-  const date=$('#fDate').value, miles=parseFloat($('#fMiles').value), note=$('#fNote').value.trim();
-  if(!date || !inChallenge(date)){ toast('Pick a date in October 2026'); return; }
-  if(!(miles>0) || miles>100){ toast('Enter miles between 0.1 and 100'); return; }
-  if(editingId){
-    const e=store.data.entries.find(x=>x.id===editingId);
-    if(!e){ cancelEdit(); toast('That entry no longer exists'); return; }
-    Object.assign(e,{date, activity:selectedActivity, miles, note});
-    store.save(); render(); cancelEdit(); toast('Entry updated');
-    cloudOp(()=>sb.from('challenge_entries').update({entry_date:date, activity:selectedActivity, miles, note:note||null}).eq('id',e.id), 'Edit not synced');
-  } else {
-    const e={id:uid(), profileId:p.id, date, activity:selectedActivity, miles, note};
-    store.data.mine.push(e.id);
-    store.data.entries.push(e); store.save(); render();
-    $('#fMiles').value=''; $('#fNote').value='';
-    toast(`${fmt(miles)} mi ${actLabel()} logged`);
-    cloudOp(()=>sb.from('challenge_entries').insert({id:e.id, profile_id:e.profileId, entry_date:e.date, activity:e.activity, miles:e.miles, note:e.note||null}), 'Add not synced');
-  }
-  closeLog();
-}
-async function deleteEntry(id){
-  if(!confirm('Delete this entry?')) return;
-  store.data.entries=store.data.entries.filter(e=>e.id!==id);
-  if(id===editingId) cancelEdit();
-  store.save(); render(); toast('Entry deleted');
-  cloudOp(()=>sb.from('challenge_entries').delete().eq('id',id), 'Delete not synced');
-}
-
-/* ---------- settings / cloud ---------- */
-function updateCloudUI(){
-  const on=!!sb;
-  $('#cloudRefresh').style.display=on?'block':'none';
-  $('#cloudInvite').style.display=on?'block':'none';
-  const st=$('#cloudStatus');
-  const tg=$('#shareToggle'); if(tg) tg.checked = store.data.shareBoard!==false;
-  const og=$('#orgToggle'); if(og) og.checked = !!store.data.organizer;
-  const sh=$('#shareHint');
-  if(sh) sh.textContent = store.data.shareBoard===false
-    ? 'Private — your miles stay on this phone only.'
-    : 'Your name and cards show on the shared board.';
-  if(store.data.shareBoard===false){ st.textContent='○ Private mode — this device only'; st.className='status'; }
-  else if(on){ st.textContent='● On the shared leaderboard'; st.className='status ok'; }
-  else if(store.data.supabase.url){ st.textContent='○ Not connected'; st.className='status'; }
-  else { st.textContent=''; st.className='status'; }
-}
-
 
 /* ---------- init ---------- */
 function init(){
   store.load();
-  $('#fDate').value=todayStr();
-  renderChips();
-  $('#submitBtn').onclick=submitForm;
-  $('#openLogBtn').onclick=()=>{ cancelEdit(); openLog(); };
-  $('#openLbBtn').onclick=async()=>{ if(sb){ try{ await pullFromCloud(); }catch(e){} render(); } renderLeaderboard(); openLb(); };
-  $('#closeLb').onclick=closeLb;
-  $('#lbModal').onclick=e=>{ if(e.target.id==='lbModal') closeLb(); };
-  $('#closeCards').onclick=closeCards;
-  $('#cardsDone').onclick=closeCards;
-  $('#cardsModal').onclick=e=>{ if(e.target.id==='cardsModal') closeCards(); };
-  $('#closeLog').onclick=()=>{ cancelEdit(); closeLog(); };
-  $('#logModal').onclick=e=>{ if(e.target.id==='logModal'){ cancelEdit(); closeLog(); } };
-  document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ if($('#logModal').classList.contains('open')){ cancelEdit(); closeLog(); } if($('#lbModal').classList.contains('open')) closeLb(); if($('#cardsModal').classList.contains('open')) closeCards(); if($('#installModal').classList.contains('open')) closeInstall(); } });
-  $('#cancelEdit').onclick=cancelEdit;
-  $('#mMinus').onclick=()=>{ const f=$('#fMiles'); f.value=Math.max(0,(parseFloat(f.value)||0)-0.5).toFixed(1).replace(/\.0$/,''); };
-  $('#mPlus').onclick=()=>{ const f=$('#fMiles'); f.value=((parseFloat(f.value)||0)+0.5).toFixed(1).replace(/\.0$/,''); };
-  $('#storyBtn').onclick=shareLeaderboard;
-  $('#myStoryBtn').onclick=shareStory;
-  $('#settingsBtn').onclick=()=>{ renderProfileList(); $('#settingsModal').classList.add('open'); };
-  $('#closeSettings').onclick=()=>$('#settingsModal').classList.remove('open');
-  $('#settingsModal').onclick=e=>{ if(e.target.id==='settingsModal') e.target.classList.remove('open'); };
-  $('#cloudInvite').onclick=copyInviteLink;
-  $('#shareToggle').onchange=async e=>{
-    const on=e.target.checked;
-    if(on){
-      store.data.shareBoard=true; store.save(); initSupabase(); updateCloudUI();
-      if(sb){ try{ await rejoinBoard(); render(); toast('You joined the leaderboard 🏆'); }
-        catch(err){ toast('Join failed: '+(err.message||err)); } }
-    }else{
-      if(sb){ toast('Removing you from the board…'); await deleteMyCloudData(); }
-      store.data.shareBoard=false; store.save(); initSupabase(); render();
-      toast('Private mode — your miles stay on this phone');
-    }
+  if(consumeInviteHash()) toast('Invite accepted — connecting…');
+  initSupabase();
+  $('#fDate').value = todayStr();
+  fillTrailSelect($('#setupTrail'), store.data.profile.trail);
+  fillTrailSelect($('#setTrail'), store.data.profile.trail);
+  $('#setName').value = store.data.profile.name||'';
+  $('#submitBtn').onclick = submitForm;
+  $('#logForm').addEventListener('submit', e=>{ e.preventDefault(); });
+  $('#setupStart').onclick = ()=>finishSetup(false);
+  $('#setupSkip').onclick = ()=>finishSetup(true);
+  $('#shareBtn').onclick = shareProgress;
+  $('#settingsBtn').onclick = ()=>{
+    $('#setName').value = store.data.profile.name||'';
+    fillTrailSelect($('#setTrail'), store.data.profile.trail);
+    renderDisplayToggles();
+    $('#cloudStatus').textContent = boardStatusText();
+    $('#settingsModal').classList.add('open');
   };
-  $('#cloudRefresh').onclick=async()=>{ try{ await pullFromCloud(); render(); toast('Refreshed from cloud'); }
-    catch(e){ toast('Refresh failed: '+(e.message||e)); } };
-  $('#orgToggle').onchange=e=>{
-    store.data.organizer=e.target.checked; store.save(); renderProfileList();
-    toast(e.target.checked?'Organizer tools on — you can manage every tracker':'Organizer tools off');
+  $('#closeSettings').onclick = ()=>$('#settingsModal').classList.remove('open');
+  $('#settingsModal').onclick = e=>{ if(e.target.id==='settingsModal') e.target.classList.remove('open'); };
+  $('#saveProfile').onclick = ()=>{
+    const name = $('#setName').value.trim();
+    if(name) store.data.profile.name = name;
+    const tr = $('#setTrail').value;
+    if(TRAILS[tr]) store.data.profile.trail = tr;
+    store.data.onboarded = true; store.save(); render(); syncBoard();
+    toast('Settings saved');
   };
-  $('#setupStart').onclick=finishSetup;
-  $('#installGo').onclick=async()=>{
+  $('#cloudRefresh').onclick = ()=>{ initSupabase(); syncBoard(); toast('Checking the shared board…'); };
+  $('#installRow').onclick = openInstall;
+  $('#installGo').onclick = async ()=>{
     if(deferredPrompt){
       deferredPrompt.prompt();
       try{ await deferredPrompt.userChoice; }catch(e){}
@@ -1708,25 +986,30 @@ function init(){
     }
     markInstallSeen(); closeInstall();
   };
-  $('#installLater').onclick=()=>{ markInstallSeen(); closeInstall(); };
-  $('#installRow').onclick=openInstall;
-  $('#lbSearch').addEventListener('input',e=>{ lbQuery=e.target.value; renderLeaderboard(); });
-  $('#installModal').onclick=e=>{ if(e.target.id==='installModal') closeInstall(); };
-  if('serviceWorker' in navigator){
-    window.addEventListener('load',()=>{ navigator.serviceWorker.register('sw.js').catch(()=>{}); });
-  }
-  maybeSetup();
-  $('#wipeData').onclick=()=>{
-    if(!confirm('Erase ALL local data (profiles + entries)? This cannot be undone.')) return;
-    localStorage.removeItem(LS_KEY); store.load(); initSupabase(); render(); maybeSetup(); toast('Local data erased');
+  $('#installLater').onclick = ()=>{ markInstallSeen(); closeInstall(); };
+  $('#installModal').onclick = e=>{ if(e.target.id==='installModal') closeInstall(); };
+  $('#wipeData').onclick = ()=>{
+    if(!confirm('Erase LeConte Training data on this device? This cannot be undone.')) return;
+    localStorage.removeItem(LS_KEY);
+    store.load(); render(); toast('Local data erased');
   };
-  if(consumeInviteHash()) toast('Invite accepted — connecting…');
-  initSupabase();
+  document.addEventListener('keydown', e=>{
+    if(e.key==='Escape'){ $('#settingsModal').classList.remove('open'); closeInstall(); }
+  });
+  if('serviceWorker' in navigator){
+    window.addEventListener('load', ()=>{ navigator.serviceWorker.register('sw.js').catch(()=>{}); });
+  }
   render();
+  syncBoard();
   setInterval(renderVerse, 60000);
-  if(sb && store.data.onboarded) pullFromCloud().then(render).catch(()=>{});
 }
 document.addEventListener('DOMContentLoaded', init);
+
+/* Exposed for tests */
+window.__leconte = {PLAN, TARGETS, TRAILS, LS_KEY, PLAN_START, READY_BY,
+  weekNumberFor, weekFor, weekInfo, phaseForWeek, daysUntilReady, inclineMinForWeek,
+  sessionsForWeek, validateEntry, computeTotals, computeProgress, coachInfo,
+  plannedLongThroughLastWeek, VERSES, store};
 </script>
 </body>
 </html>

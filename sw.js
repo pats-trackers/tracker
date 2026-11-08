@@ -1,6 +1,6 @@
-/* October Challenge service worker — network-first so updates always come through,
+/* LeConte Training service worker — network-first so updates always come through,
    cache fallback so the app still opens offline. */
-const V = 'oc-v1';
+const V = 'leconte-v1';
 const CORE = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png', './apple-touch-icon.png'];
 
 self.addEventListener('install', e => {
