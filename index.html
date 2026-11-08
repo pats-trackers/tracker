@@ -152,6 +152,11 @@
     <button class="btn secondary" id="setupSkip" type="button">Skip — use defaults (Pat · Alum Cave)</button>
   </section>
 
+  <section class="card" id="todayCard" style="border:2px solid var(--gold,#c9a227)">
+    <h2 id="todayTitle">📌 Today</h2>
+    <div id="todayBody"></div>
+  </section>
+
   <section class="card" id="countdownCard">
     <h2>⏳ Countdown</h2>
     <div class="big"><span id="cdDays">—</span> <small>days to go</small></div>
@@ -419,6 +424,46 @@ function strengthDetailsForWeek(w){
   }
   return '<b>Mon, Strength A, Hiking Legs (50-55 min):</b> Warm-up 5 min treadmill 8% at 2.8 mph + 10 squats, 10 lunges, 10 calf raises. ' + a +
          '<br><b>Wed, Strength B, Upper + Core (45-50 min):</b> Warm-up 5 min easy bike or row + band pull-aparts 2x12. ' + b;
+}
+
+const BACK_TO_BACK = {8:3, 16:4, 17:4, 19:5}; // week -> Sunday easy miles
+function stairsMinutesForWeek(w){
+  if(w>=22) return 35;
+  if(w<=4) return 30; if(w<=8) return 40; if(w<=16) return 50; return 60;
+}
+/* What am I training TODAY? Returns {label, title, body} for any date. */
+function todayInfo(d){
+  const date = parseLocalDate(d);
+  const info = weekInfo(date);
+  const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const label = dayNames[date.getDay()];
+  if(info.beforeStart){
+    const s = sessionsForWeek(1)[0];
+    return {label:'Starts tomorrow', title:'The plan starts tomorrow, Mon Nov 9',
+      body:'Nothing to train today. Get your boots, socks and pack ready. Tomorrow: '+s.title+'. '+s.desc+' Full Week 1 is in This Week below and in your plan PDF.'};
+  }
+  if(info.raw > 24){
+    return {label, title:'Plan complete', body:'The 24 weeks are done. Easy walks, good sleep, good food. Time to climb.'};
+  }
+  const w = info.week, p = info.plan, dow = date.getDay(); // 0 Sun .. 6 Sat
+  const S = sessionsForWeek(w);
+  const strength = strengthDetailsForWeek(w);
+  const half = strength.split('<br>');
+  if(dow===1) return {label, title:S[0].title, body:half[0].replace(/<[^>]+>/g,'')};
+  if(dow===2){
+    const inc = inclineMinForWeek(w);
+    return {label, title:S[1].title, body:S[1].desc};
+  }
+  if(dow===3) return {label, title:S[2].title, body:(half[1]||'').replace(/<[^>]+>/g,'')};
+  if(dow===4) return {label, title:'REST DAY', body:'No workout today. Optional 20 min flat easy walk plus 10 min mobility: calf stretch, hip flexor stretch, ankle circles, chest opener. Rest is training too, this is when the legs rebuild.'};
+  if(dow===5){
+    const mins = stairsMinutesForWeek(w), rounds = Math.max(4, Math.round(mins/4));
+    return {label, title:S[3].title, body:'About '+mins+' min total. Warm up 5 min easy, then '+rounds+' rounds of 2 min steady climbing (RPE 6) / 2 min very easy. Hit '+fmt(p.stairsFt)+' ft total (about '+Math.round(p.stairsFt/10)+' floors) and note the number. Whole foot on the step, stand tall, do not pull up with the rails. Descents slow and controlled.'};
+  }
+  if(dow===6) return {label, title:S[4].title, body:S[4].desc+' Breakfast 60-90 min before you start. Eat 200-300 cal every hour from hour 1 and drink regularly. Merino socks, broken-in boots.'};
+  // Sunday
+  if(BACK_TO_BACK[w]) return {label, title:'BACK-TO-BACK TEST: easy '+BACK_TO_BACK[w]+' miles', body:'Not a rest day this week. Easy '+BACK_TO_BACK[w]+' miles, flat, no pack weight beyond water, go slow. The point is hiking on tired legs. Note how your legs and feet feel, that is the data. Send Remy your Sunday check-in tonight.'};
+  return {label, title:'REST DAY', body:'Church, family, full rest. No make-up workouts. Send Remy your Sunday check-in tonight: Saturday miles and time, Friday stairs total, any pain and where, how the boots felt.'};
 }
 
 /* ---------- verses (from the October Challenge app) ---------- */
@@ -925,8 +970,14 @@ function applyDisplay(){
   $('#verseCard').style.display=d.verse===false?'none':'';
   $('#coachCard').style.display=d.coach===false?'none':'';
 }
+function renderToday(){
+  const t = todayInfo(new Date());
+  const info = weekInfo(new Date());
+  $('#todayTitle').textContent = '📌 Today, ' + t.label + (info.beforeStart ? '' : ' · Week ' + info.week + ' of 24 · ' + info.phase);
+  $('#todayBody').innerHTML = '<div style="font-weight:700;font-size:17px;margin-bottom:4px">'+esc(t.title)+'</div><div style="line-height:1.5">'+esc(t.body)+'</div>';
+}
 function render(){
-  renderSetup(); renderCountdown(); renderWeek(); renderProgress();
+  renderSetup(); renderToday(); renderCountdown(); renderWeek(); renderProgress();
   renderCoach(); renderEntries(); renderBoard(); renderVerse();
   renderDisplayToggles(); applyDisplay();
 }
@@ -1023,7 +1074,7 @@ document.addEventListener('DOMContentLoaded', init);
 /* Exposed for tests */
 window.__leconte = {PLAN, TARGETS, TRAILS, LS_KEY, PLAN_START, READY_BY,
   weekNumberFor, weekFor, weekInfo, phaseForWeek, daysUntilReady, inclineMinForWeek,
-  sessionsForWeek, strengthDetailsForWeek, validateEntry, computeTotals, computeProgress, coachInfo,
+  sessionsForWeek, strengthDetailsForWeek, todayInfo, stairsMinutesForWeek, validateEntry, computeTotals, computeProgress, coachInfo,
   plannedLongThroughLastWeek, VERSES, store};
 </script>
 </body>
